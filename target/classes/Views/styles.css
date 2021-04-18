@@ -1,0 +1,50 @@
+.main__anchor {
+    -fx-background-color: #40425B;
+}
+
+/*------ TREE TABLE VIEW STYLES START-----*/
+.piechart {
+    -fx-border-width: 0,0;
+    -fx-font: 20px "Lato", sans-serif;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.chart-pie-label-line {
+    -fx-stroke: #8b4513;
+    -fx-fill: #8b4513;
+}
+
+.chart-pie-label {
+    -fx-fill: #8b4513;
+    -fx-font-size: 17px;
+}
+
+/*------ TREE TABLE VIEW STYLES END-----*/
+
+.table__button {
+    -fx-text-fill: white;
+    -fx-background-color: #141846;
+    -fx-border-radius: 14px;
+    -fx-background-radius: 14px;
+}
+
+.table__button:hover {
+    -fx-cursor: hand;
+    -fx-text-fill: #141846;
+    -fx-background-color: white;
+}
+
+.table__button:focused {
+    -fx-text-fill: #141846;
+    -fx-background-color: white;
+}
+
+/*------ CIRCLE STYLES START-----*/
+
+.circle_above_chart {
+    -fx-background-color: #40425B;
+    -fx-border-width: 0px;
+}
+.total_amount {
+    -fx-alignment: center;
+}
