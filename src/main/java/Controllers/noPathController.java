@@ -53,6 +53,7 @@ public class noPathController {
         apMain.getChildren().add(root);
         chartCircle.toFront();
         peopleLabel.toFront();
+        updateTotalAmountLabel();
         totalNumberLabel.toFront();
 
         addButton.setOnAction(event ->{
@@ -62,18 +63,31 @@ public class noPathController {
             customPie.addNode(new PieChart.Data(field_name, field_value));
 
             customPie.paint();
+            updateTotalAmountLabel();
         });
         editButton.setOnAction(event ->{
             String field_name = nameField.getText();
-            Double field_value = Double.valueOf(valueField.getText());
+            double field_value = Double.parseDouble(valueField.getText());
             customPie.editNode(new PieChart.Data(field_name, field_value));
 
             customPie.paint();
+            updateTotalAmountLabel();
         });
         deleteButton.setOnAction(event ->{
             String field_name = nameField.getText();
             if (customPie.deleteNode(field_name))
                 customPie.paint();
+
+            updateTotalAmountLabel();
         });
+    }
+
+    void updateTotalAmountLabel(){
+        int totalDataSum = 0;
+        for (PieChart.Data node: dataList) {
+            totalDataSum += node.getPieValue();
+        }
+
+        totalNumberLabel.setText(String.valueOf(totalDataSum));
     }
 }
