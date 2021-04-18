@@ -6,8 +6,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
@@ -19,8 +17,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.apache.commons.math3.util.Precision;
-
-import java.text.DecimalFormat;
 
 public class PieChartNoPath {
 
@@ -34,9 +30,9 @@ public class PieChartNoPath {
     private ObservableList<Text> labelsList;
     private Group group;
 
-    private int centerX = 220;   // Center point of circle.
-    private int centerY = 220;
-    private int radius = centerX - 20;
+    private int centerX = 355;   // Center point of circle.
+    private int centerY = 300;
+    private int radius = centerY - 110;
     private int[] angles;   // An array to hold the angles that divide
     // the wedges.  For convenience, this array
     // is of size dataCt + 1, and it starts with
@@ -105,7 +101,7 @@ public class PieChartNoPath {
             // Creating arc by reverse clock moving
             Arc createdArc = createArc(i);
             // Creating text for slice
-            Text sliceText = createTextForSlice(createdArc.getLength(), (LineTo)middleLinePath.getElements().get(1), i);
+            Text sliceText = createTextForSlice(createdArc.getLength(), i);
 
             animateLineByAngle(middleLinePath);
             animateArcByAngle(createdArc, angles[i]);
@@ -119,17 +115,13 @@ public class PieChartNoPath {
         return group;
     }
     private Path createMiddleLine(int currentIteration){
-        double angle = (angles[currentIteration+1]-angles[currentIteration])/2.0 + angles[currentIteration];
-        double currentAngleRadians = Math.toRadians(-angle);
-        double middleXofArc = centerX + radius*Math.cos(currentAngleRadians);
-        double middleYofArc = centerY + radius*Math.sin(currentAngleRadians);
+        double[] coordinates = calculateXYofArcsMiddle(currentIteration, 10, 'L');
         Path middleLinePath = new Path(
                 // line from center to second point of arc
                 new MoveTo(centerX, centerY),
-                new LineTo(middleXofArc, middleYofArc)
+                new LineTo(coordinates[0], coordinates[1])
         );
         middleLinePath.setStroke(palette[currentIteration % palette.length]);middleLinePath.setStrokeWidth(2);
-        middleLinePath.setScaleX(1.2);middleLinePath.setScaleY(1.2);
 
         middleLinesList.add(middleLinePath);
         return middleLinePath;
@@ -145,16 +137,36 @@ public class PieChartNoPath {
         arc.setFill(palette[currentIteration % palette.length]);
         return arc;
     }
-    private Text createTextForSlice(double length, LineTo line, int iteration) {
-        double xPosition = line.getX();
-        double yPosition = line.getY();
+    private Text createTextForSlice(double length, int iteration) {
+        double[] coordinates = calculateXYofArcsMiddle(iteration, 20, 'T');
+
         String rounded = String.valueOf(Precision.round(length*100 / 360, 2)) + '%';
-        Text text = new Text(xPosition, yPosition, rounded);
+        Text text = new Text(coordinates[0], coordinates[1], rounded);
         text.setFill(palette[iteration % palette.length]);
         text.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         labelsList.add(text);
         return text;
+    }
+
+    private double[] calculateXYofArcsMiddle(int iteration, double overLength, char type){
+        // char type: 'L' stands for LINE, 'T' for TEXT
+        double[] result = new double[2];
+        double angle = (angles[iteration+1]-angles[iteration])/2.0 + angles[iteration];
+        double currentAngleRadians = Math.toRadians(-angle);
+        result[0] = centerX + (radius + overLength)*Math.cos(currentAngleRadians);
+        result[1] = centerY + (radius + overLength)*Math.sin(currentAngleRadians);
+
+        // Correcting position of text, because it can be burried into chart.
+        if (result[0] < centerX && result[1] <= centerY){ // 2 part of coordinates
+            result[0] -= 35;
+            result[1] -= 10;
+        }
+        else if (result[0] < centerX && result[1] >= centerY && type == 'T'){ // 3 part of coordinates
+            result[0] -= 45;
+            result[1] += 15;
+        }
+        return result;
     }
 
     public void addNode(Data data) {
@@ -202,15 +214,8 @@ public class PieChartNoPath {
     }
     private void animateArcByAngle(Arc element, double targetAngle){
         // We want to animateArcByAngle pieSlice from 0* to another degree
-        EventHandler onFinished = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                element.setOnDragDetected(event -> {
-                    //element.setEffect(new javafx.scene.effect.Lighting());
-                });
-            }
-        };
         KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(600), onFinished, angleValue);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(600), angleValue);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame);
         tl.play();

@@ -93,7 +93,7 @@ public class MainController {
                 String fxmlFile = "/Views/noPathChart.fxml";
                 FXMLLoader loader = new FXMLLoader();
                 Parent parent = loader.load(getClass().getResourceAsStream(fxmlFile));
-                Scene scene = new Scene(parent, 800,500);
+                Scene scene = new Scene(parent, 1048,634);
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setTitle("PieChart with Arcs from shape.Arc");
