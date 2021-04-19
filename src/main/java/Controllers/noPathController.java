@@ -58,27 +58,33 @@ public class noPathController {
 
         addButton.setOnAction(event ->{
             // Adding items to Pie chart
-            String field_name = nameField.getText();
-            double field_value = Double.parseDouble(valueField.getText());
-            customPie.addNode(new PieChart.Data(field_name, field_value));
+            if(!nameField.getText().trim().isEmpty() && !valueField.getText().trim().isEmpty()){
+                String field_name = nameField.getText();
+                double field_value = Double.parseDouble(valueField.getText());
+                customPie.addNode(new PieChart.Data(field_name, field_value));
 
-            customPie.paint();
-            updateTotalAmountLabel();
+                customPie.paint();
+                updateTotalAmountLabel();
+            }
         });
         editButton.setOnAction(event ->{
-            String field_name = nameField.getText();
-            double field_value = Double.parseDouble(valueField.getText());
-            customPie.editNode(new PieChart.Data(field_name, field_value));
+            if(!nameField.getText().trim().isEmpty() && !valueField.getText().trim().isEmpty()){
+                String field_name = nameField.getText();
+                double field_value = Double.parseDouble(valueField.getText());
+                customPie.editNode(new PieChart.Data(field_name, field_value));
 
-            customPie.paint();
-            updateTotalAmountLabel();
+                customPie.paint();
+                updateTotalAmountLabel();
+            }
         });
         deleteButton.setOnAction(event ->{
-            String field_name = nameField.getText();
-            if (customPie.deleteNode(field_name))
-                customPie.paint();
+            if(!nameField.getText().trim().isEmpty()){
+                String field_name = nameField.getText();
+                if (customPie.deleteNode(field_name))
+                    customPie.paint();
 
-            updateTotalAmountLabel();
+                updateTotalAmountLabel();
+            }
         });
     }
 

@@ -8,7 +8,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
 public class PieChartWithPath {
-
+    /*
+    * THIS CLASS IS JUST A SKELETON AND EXAMPLE OF HOW TO CREATE
+    * AND ARC USING ONLY PATHELEMENTS. OTHER LOGIC CAN JUST BE COPIED FROM
+    * PieChartNoPath
+    * */
     private int dataCount;     // The number of data values for the chart.
     private ObservableList<Data> dataList;
     private Group group;
@@ -87,7 +91,4 @@ public class PieChartWithPath {
 
         return group;
     }
-
-
-
 }
