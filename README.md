@@ -1,6 +1,6 @@
 # PieChart-javafx : Анимированная круговая диаграмма
 ## Видеообзор:
-[![Видеообзор](![image](https://user-images.githubusercontent.com/47776039/115292391-91cc1180-a15e-11eb-9364-8e35dd7cd671.png))](https://youtu.be/bLuF7uZhFfE)
+https://youtu.be/bLuF7uZhFfE
 
 ## Задание:
 Есть некий массив данных (наименование + значение).
