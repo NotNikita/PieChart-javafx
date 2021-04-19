@@ -170,9 +170,17 @@ public class PieChartNoPath {
     }
 
     public void addNode(Data data) {
+        // Because we cant use .contains method
+        boolean nameFoundInList = false;
         for (Data node: dataList) {
             if (node.getName().equals(data.getName()))
+            {
                 node.setPieValue( node.getPieValue() + data.getPieValue() );
+                nameFoundInList = true;
+            }
+        }
+        if(!nameFoundInList){
+            dataList.add(data);
         }
         setData();
     }

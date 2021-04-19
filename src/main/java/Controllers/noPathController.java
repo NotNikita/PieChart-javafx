@@ -59,7 +59,7 @@ public class noPathController {
         addButton.setOnAction(event ->{
             // Adding items to Pie chart
             String field_name = nameField.getText();
-            Double field_value = Double.valueOf(valueField.getText());
+            double field_value = Double.parseDouble(valueField.getText());
             customPie.addNode(new PieChart.Data(field_name, field_value));
 
             customPie.paint();

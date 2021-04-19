@@ -55,16 +55,15 @@ public class PieChartWithPath {
             return null;
         }
 
-        int centerX = 230;   // Center point of circle.
-        int centerY = 220;
+        int centerX = 355;   // Center point of circle.
+        int centerY = 300;
 
-        int radius = centerY - 20;
+        int radius = centerY - 110;
         double previousXofArc = centerX + radius;
-        double previousYofArc = centerY + 0;
+        double previousYofArc = centerY;
 
 
-        int j = 1;
-        for (Data node: dataList) {
+        for (int j = 0; j <= dataCount; j++) {
             double currentAngleRadians = Math.toRadians(angles[j]);
             double currentXofArc = centerX + radius*Math.cos(currentAngleRadians);
             double currentYofArc = centerY + radius*Math.sin(currentAngleRadians);
@@ -83,7 +82,6 @@ public class PieChartWithPath {
             group.getChildren().add(arcPath);
             previousXofArc = currentXofArc;
             previousYofArc = currentYofArc;
-            j++;
 
         }
 

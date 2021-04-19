@@ -73,19 +73,27 @@ public class MainController {
 
 
         withPathChartButton.setOnAction(event ->{
-                // Adding items to Pie chart
-            //String field_name = nameField.getText();
-            //Double field_value = Double.valueOf(valueField.getText());
-            //dataList.add(new Data(field_name, field_value));
-            Group root = new Group();
-            PieChartWithPath pathPie = new PieChartWithPath(dataList, root);
-
-            Scene scene = new Scene(root, 800,500, Color.AZURE);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("PieChart with Arcs from PathElements");
-            stage.show();
-            root = pathPie.paint();
+            //Group root = new Group();
+            //PieChartWithPath pathPie = new PieChartWithPath(dataList, root);
+            //
+            //Scene scene = new Scene(root, 800,500, Color.AZURE);
+            //Stage stage = new Stage();
+            //stage.setScene(scene);
+            //stage.setTitle("PieChart with Arcs from PathElements");
+            //stage.show();
+            //root = pathPie.paint();
+            try {
+                String fxmlFile = "/Views/withPathChart.fxml";
+                FXMLLoader loader = new FXMLLoader();
+                Parent parent = loader.load(getClass().getResourceAsStream(fxmlFile));
+                Scene scene = new Scene(parent, 1048,634);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("PieChart with Arcs from PathElements");
+                stage.show();
+            } catch (NullPointerException | IOException e) {
+                e.printStackTrace();
+            }
         });
 
         noPathChartButton.setOnAction(event ->{
