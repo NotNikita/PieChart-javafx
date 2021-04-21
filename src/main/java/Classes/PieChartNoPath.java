@@ -39,12 +39,12 @@ public class PieChartNoPath {
     // 0 and ends with 360.
 
     private final static Color[] palette = {  // Colors for the chart.
-            Color.RED,
-            Color.BLUE,
-            Color.GREEN,
-            Color.MAGENTA,
-            Color.YELLOW,
-            Color.CYAN
+            Color.rgb(0, 63, 92),
+            Color.rgb(96, 80, 220),
+            Color.rgb(213, 45, 183),
+            Color.rgb(255, 46, 126),
+            Color.rgb(255, 107, 69),
+            Color.rgb(255, 171, 5)
     };
 
 
@@ -157,12 +157,13 @@ public class PieChartNoPath {
         result[0] = centerX + (radius + overLength)*Math.cos(currentAngleRadians);
         result[1] = centerY + (radius + overLength)*Math.sin(currentAngleRadians);
 
+        if (type == 'L') return result;
         // Correcting position of text, because it can be burried into chart.
         if (result[0] < centerX && result[1] <= centerY){ // 2 part of coordinates
             result[0] -= 35;
             result[1] -= 10;
         }
-        else if (result[0] < centerX && result[1] >= centerY && type == 'T'){ // 3 part of coordinates
+        else if (result[0] < centerX && result[1] >= centerY){ // 3 part of coordinates
             result[0] -= 45;
             result[1] += 15;
         }
