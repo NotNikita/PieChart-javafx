@@ -121,7 +121,7 @@ public class PieChartNoPath {
                 new MoveTo(centerX, centerY),
                 new LineTo(coordinates[0], coordinates[1])
         );
-        middleLinePath.setStroke(palette[currentIteration % palette.length]);middleLinePath.setStrokeWidth(2);
+        middleLinePath.setStroke(palette[currentIteration % palette.length]);middleLinePath.setStrokeWidth(5);
 
         middleLinesList.add(middleLinePath);
         return middleLinePath;

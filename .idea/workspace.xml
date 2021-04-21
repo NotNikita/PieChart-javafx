@@ -4,8 +4,7 @@
     <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619036010738</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix 1.0: chart colors fixed.">
+      <created>1619037095912</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1619037095912</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -141,7 +147,8 @@
     <MESSAGE value="update: ChartNoPath scene is now prettier." />
     <MESSAGE value="fix: empty fields, after click, wont lead to errors." />
     <MESSAGE value="update: Removed Doughnut and noPath versions" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: Removed Doughnut and noPath versions" />
+    <MESSAGE value="fix 1.0: chart colors fixed." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix 1.0: chart colors fixed." />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -172,10 +179,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1619036006573">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1619037094761">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1619036006573" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1619037094761" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -188,22 +195,22 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1617959729443" />
-    <state width="1877" height="63" key="GridCell.Tab.0.bottom" timestamp="1619037048891">
+    <state width="1877" height="63" key="GridCell.Tab.0.bottom" timestamp="1619037641207">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="63" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619037048891" />
-    <state width="1877" height="63" key="GridCell.Tab.0.center" timestamp="1619037048890">
+    <state width="1877" height="63" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619037641207" />
+    <state width="1877" height="63" key="GridCell.Tab.0.center" timestamp="1619037641206">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="63" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619037048890" />
-    <state width="1877" height="63" key="GridCell.Tab.0.left" timestamp="1619037048890">
+    <state width="1877" height="63" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619037641206" />
+    <state width="1877" height="63" key="GridCell.Tab.0.left" timestamp="1619037641206">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="63" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619037048890" />
-    <state width="1877" height="63" key="GridCell.Tab.0.right" timestamp="1619037048891">
+    <state width="1877" height="63" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619037641206" />
+    <state width="1877" height="63" key="GridCell.Tab.0.right" timestamp="1619037641207">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="63" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619037048891" />
+    <state width="1877" height="63" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619037641207" />
     <state width="1877" height="280" key="GridCell.Tab.1.bottom" timestamp="1618864182692">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
