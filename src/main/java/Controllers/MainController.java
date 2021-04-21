@@ -1,8 +1,5 @@
 package Controllers;
 
-import Classes.DoughnutChart;
-import Classes.PieChartNoPath;
-import Classes.PieChartWithPath;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,12 +32,6 @@ public class MainController {
     private TextField nameField;
 
     @FXML
-    private Button DoughnutChartButton;
-
-    @FXML
-    private Button withPathChartButton;
-
-    @FXML
     private Button noPathChartButton;
 
     @FXML
@@ -65,36 +56,6 @@ public class MainController {
 
     @FXML
     void initialize() {
-        // example of iterating the data set
-        //for (Data node: dataList) {
-        //    System.out.println("name is: "+node.getName()+" and value is: "+ node.getPieValue());
-        //}
-
-
-
-        withPathChartButton.setOnAction(event ->{
-            //Group root = new Group();
-            //PieChartWithPath pathPie = new PieChartWithPath(dataList, root);
-            //
-            //Scene scene = new Scene(root, 800,500, Color.AZURE);
-            //Stage stage = new Stage();
-            //stage.setScene(scene);
-            //stage.setTitle("PieChart with Arcs from PathElements");
-            //stage.show();
-            //root = pathPie.paint();
-            try {
-                String fxmlFile = "/Views/withPathChart.fxml";
-                FXMLLoader loader = new FXMLLoader();
-                Parent parent = loader.load(getClass().getResourceAsStream(fxmlFile));
-                Scene scene = new Scene(parent, 1048,634);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("PieChart with Arcs from PathElements");
-                stage.show();
-            } catch (NullPointerException | IOException e) {
-                e.printStackTrace();
-            }
-        });
 
         noPathChartButton.setOnAction(event ->{
             try {
@@ -107,19 +68,6 @@ public class MainController {
                 stage.setTitle("PieChart with Arcs from shape.Arc");
                 stage.show();
             } catch (NullPointerException | IOException e) {
-                e.printStackTrace();
-            }
-        });
-        DoughnutChartButton.setOnAction(event -> {
-            try {
-                final DoughnutChart chart = new DoughnutChart(dataList);
-                chart.setTitle("Imported Fruits");
-                chart.setLegendVisible(false);
-                Stage stage = new Stage();
-                Scene scene = new Scene(new StackPane(chart));
-                stage.setScene(scene);
-                stage.show();
-            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
         });

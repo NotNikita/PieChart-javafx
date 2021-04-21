@@ -10,16 +10,6 @@
 
 <AnchorPane prefHeight="669.0" prefWidth="1147.0" styleClass="main__anchor" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
-      <Button id="delete-btn" fx:id="DoughnutChartButton" layoutX="970.0" layoutY="351.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="141.0" styleClass="table__button" text="Doughnut">
-         <font>
-            <Font name="Lato Regular" size="23.0" />
-         </font>
-      </Button>
-      <Button id="add-btn" fx:id="withPathChartButton" layoutX="970.0" layoutY="175.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="141.0" styleClass="table__button" text="With Path">
-         <font>
-            <Font name="Lato Regular" size="23.0" />
-         </font>
-      </Button>
       <Button id="edit-btn" fx:id="noPathChartButton" layoutX="970.0" layoutY="265.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="141.0" styleClass="table__button" text="No Path">
          <font>
             <Font name="Lato Regular" size="23.0" />
