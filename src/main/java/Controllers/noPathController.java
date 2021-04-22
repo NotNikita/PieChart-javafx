@@ -48,7 +48,7 @@ public class noPathController {
     @FXML
     void initialize() {
         Group root = new Group();
-        PieChartNoPath customPie = new PieChartNoPath(dataList, root);
+        PieChartNoPath customPie = new PieChartNoPath(dataList, root, true);
         root = customPie.paint();
         apMain.getChildren().add(root);
         chartCircle.toFront();

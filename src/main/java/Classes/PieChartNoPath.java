@@ -20,9 +20,8 @@ import org.apache.commons.math3.util.Precision;
 
 public class PieChartNoPath {
 
-    // A PieChartCanvas can display a pie chart, based on an array
-    // of data passed to it in its setData() method.  There can be
-    // up to 12 wedges in the pie.
+    // If you want to change direction of chart - just make this false
+    private boolean paintChartClockwise;
 
     private int dataCount;     // The number of data values for the chart.
     private ObservableList<Data> dataList;
@@ -48,10 +47,11 @@ public class PieChartNoPath {
     };
 
 
-    public PieChartNoPath(ObservableList<PieChart.Data> data, Group root) {
+    public PieChartNoPath(ObservableList<PieChart.Data> data, Group root, boolean paintChartClockwise) {
         // Set data list and Group
         dataList = data;
         this.group = root;
+        this.paintChartClockwise = paintChartClockwise;
         setData();
     }
 
@@ -104,7 +104,7 @@ public class PieChartNoPath {
             Text sliceText = createTextForSlice(createdArc.getLength(), i);
 
             animateLineByAngle(middleLinePath);
-            animateArcByAngle(createdArc, angles[i]);
+            animateArcByAngle(createdArc, angles[i], createdArc.getLength());
             animateText(sliceText);
 
             group.getChildren().add(middleLinePath);
@@ -135,6 +135,7 @@ public class PieChartNoPath {
         //Line lineForArc = new Line(centerX,centerY,radius,)
         arc.setType(ArcType.ROUND);
         arc.setFill(palette[currentIteration % palette.length]);
+        if (paintChartClockwise) arc.setStartAngle(360);
         return arc;
     }
     private Text createTextForSlice(double length, int iteration) {
@@ -221,12 +222,17 @@ public class PieChartNoPath {
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
     }
-    private void animateArcByAngle(Arc element, double targetAngle){
+    private void animateArcByAngle(Arc element, double targetAngle, double targetLength){
+        element.setLength(0);
         // We want to animateArcByAngle pieSlice from 0* to another degree
+        // and length to scale from (0 to its size)  as well
         KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(600), angleValue);
+        KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(9900), angleValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(9900), lengthValue);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame);
+        tl.getKeyFrames().add(keyFrame2);
         tl.play();
     }
     private void animateText(Text textToAnimate){
