@@ -29,9 +29,11 @@ public class PieChartNoPath {
     private ObservableList<Text> labelsList;
     private Group group;
 
-    private int centerX = 355;   // Center point of circle.
-    private int centerY = 300;
-    private int radius = centerY - 110;
+    // if parent is apMain -> (355,300, radius = centerY - 110)
+    // if parent is pane   -> (268,258, radius = 190)
+    private int centerX = 268;
+    private int centerY = 258;
+    private int radius = 190;
     private int[] angles;   // An array to hold the angles that divide
     // the wedges.  For convenience, this array
     // is of size dataCt + 1, and it starts with
@@ -160,12 +162,12 @@ public class PieChartNoPath {
 
         if (type == 'L') return result;
         // Correcting position of text, because it can be burried into chart.
-        if (result[0] < centerX && result[1] <= centerY){ // 2 part of coordinates
-            result[0] -= 35;
-            result[1] -= 10;
+        if (result[0] < centerX && result[1] < centerY){ // 2 part of coordinates
+            result[0] -= 49; //35
+            result[1] -= 7; // 10
         }
         else if (result[0] < centerX && result[1] >= centerY){ // 3 part of coordinates
-            result[0] -= 45;
+            result[0] -= 58; //45
             result[1] += 15;
         }
         return result;
@@ -228,8 +230,8 @@ public class PieChartNoPath {
         // and length to scale from (0 to its size)  as well
         KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
         KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(9900), angleValue);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(9900), lengthValue);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(600), angleValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lengthValue);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame);
         tl.getKeyFrames().add(keyFrame2);

@@ -10,13 +10,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import org.apache.commons.math3.util.Precision;
 
 public class noPathController {
     ObservableList<PieChart.Data> dataList = FXCollections.observableArrayList();
 
     @FXML
     private AnchorPane apMain;
+    @FXML
+    private Pane chartPaneContainer;
 
     @FXML
     private Button deleteButton;
@@ -24,7 +28,6 @@ public class noPathController {
     private Button addButton;
     @FXML
     private Button editButton;
-
     @FXML
     private Circle chartCircle;
     @FXML
@@ -50,7 +53,11 @@ public class noPathController {
         Group root = new Group();
         PieChartNoPath customPie = new PieChartNoPath(dataList, root, true);
         root = customPie.paint();
-        apMain.getChildren().add(root);
+        //apMain.getChildren().add(root);
+        chartPaneContainer.getChildren().add(root);
+        chartPaneContainer.getChildren().add(chartCircle);
+        chartPaneContainer.getChildren().add(peopleLabel); // was x:308 y:316
+        chartPaneContainer.getChildren().add(totalNumberLabel); // was x:267 y:245
         chartCircle.toFront();
         peopleLabel.toFront();
         updateTotalAmountLabel();
@@ -85,6 +92,19 @@ public class noPathController {
 
                 updateTotalAmountLabel();
             }
+        });
+        
+        // Responsive-Scaling behaviour
+        apMain.widthProperty().addListener(e -> {
+            //chartPaneContainer.prefWidthProperty().bind(apMain.widthProperty());
+            //chartPaneContainer.setScaleX(); // its void
+            chartPaneContainer.scaleXProperty().bind(this.apMain.widthProperty().divide(apMain.maxWidthProperty()));
+        });
+        apMain.heightProperty().addListener(e -> {
+            chartPaneContainer.scaleYProperty().bind(this.apMain.heightProperty().divide(apMain.maxHeightProperty()));
+
+            double scalingValue = this.apMain.widthProperty().divide(apMain.maxWidthProperty()).get();
+            System.out.println("Scaling by " + Precision.round(scalingValue, 2));
         });
     }
 
