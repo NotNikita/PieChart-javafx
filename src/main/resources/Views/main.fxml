@@ -7,25 +7,28 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="669.0" prefWidth="1147.0" styleClass="main__anchor" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
-   <children>
-      <Button id="edit-btn" fx:id="noPathChartButton" layoutX="763.0" layoutY="246.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="220.0" styleClass="table__button" text="No Path">
-         <font>
-            <Font name="Lato Regular" size="23.0" />
-         </font>
-      </Button>
-      <PieChart fx:id="pieChart" layoutX="117.0" layoutY="59.0" legendVisible="false" prefHeight="520.0" prefWidth="520.0" styleClass="piechart" />
-      <Circle fill="#40425b" layoutX="377.0" layoutY="321.0" radius="145.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass=".circle_above_chart" translateY="-2.0" />
-      <Label fx:id="totalNumberLabel" alignment="CENTER" layoutX="288.0" layoutY="265.0" prefHeight="66.0" prefWidth="178.0" styleClass=".total_amount" text="100,000" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="45.0" />
-         </font>
-      </Label>
-      <Label layoutX="330.0" layoutY="337.0" text="people" textFill="#7478ad">
-         <font>
-            <Font name="Lato Regular" size="32.0" />
-         </font>
-      </Label>
-      <Button fx:id="setUpPieChart" layoutX="534.0" layoutY="561.0" mnemonicParsing="false" text="Set up piechart" />
-   </children>
+<AnchorPane prefHeight="669.0" prefWidth="1147.0" styleClass="main__anchor" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+   <Button id="edit-btn" fx:id="noPathChartButton" layoutX="763.0" layoutY="246.0" mnemonicParsing="false"
+           prefHeight="105.0" prefWidth="220.0" styleClass="table__button" text="No Path">
+      <font>
+         <Font name="Lato Regular" size="23.0"/>
+      </font>
+   </Button>
+   <PieChart fx:id="pieChart" layoutX="117.0" layoutY="59.0" legendVisible="false" prefHeight="520.0" prefWidth="520.0"
+             styleClass="piechart"/>
+   <Circle fill="#40425b" layoutX="377.0" layoutY="321.0" radius="145.0" stroke="BLACK" strokeType="INSIDE"
+           strokeWidth="0.0" styleClass=".circle_above_chart" translateY="-2.0"/>
+   <Label fx:id="totalNumberLabel" alignment="CENTER" layoutX="288.0" layoutY="265.0" prefHeight="66.0"
+          prefWidth="178.0" styleClass=".total_amount" text="100,000" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="45.0"/>
+      </font>
+   </Label>
+   <Label layoutX="330.0" layoutY="337.0" text="people" textFill="#7478ad">
+      <font>
+         <Font name="Lato Regular" size="32.0"/>
+      </font>
+   </Label>
+   <Button fx:id="setUpPieChart" layoutX="534.0" layoutY="561.0" mnemonicParsing="false" text="Set up piechart"/>
 </AnchorPane>

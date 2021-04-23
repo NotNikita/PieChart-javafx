@@ -26,6 +26,7 @@ public class PieChartNoPath {
     private int dataCount;     // The number of data values for the chart.
     private ObservableList<Data> dataList;
     private ObservableList<Path> middleLinesList;
+    private ObservableList<Arc> arcsList;
     private ObservableList<Text> labelsList;
     private Group group;
 
@@ -75,8 +76,12 @@ public class PieChartNoPath {
         this.dataCount = dataList.size();
         angles = new int[dataCount + 1];
         middleLinesList = FXCollections.observableArrayList();
+        arcsList = FXCollections.observableArrayList();
         labelsList = FXCollections.observableArrayList();
 
+        calculateAngles();
+    }
+    private void calculateAngles(){
         angles[0] = 0;
         angles[dataCount] = 360;
         double totalDataSum = 0;
@@ -105,7 +110,7 @@ public class PieChartNoPath {
             // Creating text for slice
             Text sliceText = createTextForSlice(createdArc.getLength(), i);
 
-            animateLineByAngle(middleLinePath);
+            animateLineFromCenter(middleLinePath);
             animateArcByAngle(createdArc, angles[i], createdArc.getLength());
             animateText(sliceText);
 
@@ -125,7 +130,13 @@ public class PieChartNoPath {
         );
         middleLinePath.setStroke(palette[currentIteration % palette.length]);middleLinePath.setStrokeWidth(5);
 
-        middleLinesList.add(middleLinePath);
+        //middleLinesList.add(middleLinePath);
+        try {
+            middleLinesList.set(currentIteration,middleLinePath);
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Произошла ошибка при создании линии: " + e.getMessage());
+            middleLinesList.add(middleLinePath);
+        }
         return middleLinePath;
     }
     private Arc createArc(int currentIteration){
@@ -134,10 +145,11 @@ public class PieChartNoPath {
         // the number of degrees in the wedge is
         // angles[i+1] - angles[i].
         Arc arc = new Arc(centerX,centerY,radius,radius, 0, angles[currentIteration+1] - angles[currentIteration]);
-        //Line lineForArc = new Line(centerX,centerY,radius,)
         arc.setType(ArcType.ROUND);
         arc.setFill(palette[currentIteration % palette.length]);
         if (paintChartClockwise) arc.setStartAngle(360);
+
+        arcsList.add(arc);
         return arc;
     }
     private Text createTextForSlice(double length, int iteration) {
@@ -189,12 +201,33 @@ public class PieChartNoPath {
         setData();
     }
     public void editNode(Data data) {
+        // 1. Array of old arc's angles
+        int[] oldAngles = new int[this.angles.length];
+        System.arraycopy(angles, 0, oldAngles, 0, oldAngles.length);
+        // 2. Editing dataList's one selected arc (MAIN LOGIC)
+        boolean nameFoundInList = false;
         for (Data node: dataList) {
             if (node.getName().equals(data.getName()))
+            {
                 node.setPieValue( data.getPieValue() );
+                nameFoundInList = true;
+            }
         }
-        setData();
+        if (!nameFoundInList) return;
+        // 3. calculating new angles for arcs from dataList
+        calculateAngles();
+        // 4. Animating text,arc,line
+        for (int j = 0; j < dataCount; j++) {
+            animateArcFromAngleToAngle(arcsList.get(j), oldAngles[j], angles[j], angles[j+1] - angles[j]);
+
+            double[] newLineXY = calculateXYofArcsMiddle(j, 10,'L');
+            animateLineMoving( middleLinesList.get(j), newLineXY[0], newLineXY[1]);
+
+            double[] newTextXY = calculateXYofArcsMiddle(j, 20,'T');
+            animateTextMoving(labelsList.get(j), newTextXY[0], newTextXY[1]);
+        }
     }
+
     public boolean deleteNode(String nodeName) {
         for (Data node: dataList) {
             if (node.getName().equals(nodeName)){
@@ -207,7 +240,7 @@ public class PieChartNoPath {
         return false;
     }
 
-    private void animateLineByAngle(Path middleLine){
+    private void animateLineFromCenter(Path middleLine){
         // Getting our target  line
         LineTo lnTo = (LineTo) middleLine.getElements().get(1);
         // Setting property and its final value
@@ -242,5 +275,48 @@ public class PieChartNoPath {
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();
+    }
+
+    // Edit arc functionality
+    private void animateArcFromAngleToAngle(Arc element, double startAngle, double targetAngle, double targetLength){
+        //Arc already has its old length, but angle = 0
+        element.setStartAngle(startAngle);
+        // animating
+        KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
+        KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(600), angleValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lengthValue);
+        Timeline tl = new Timeline();
+        tl.getKeyFrames().add(keyFrame);
+        tl.getKeyFrames().add(keyFrame2);
+        tl.play();
+    }
+    private void animateLineMoving(Path middleLine, double xEnd, double yEnd){
+        // Getting our target  line
+        LineTo lnTo = (LineTo) middleLine.getElements().get(1);
+        // Setting property and its final value
+        KeyValue lnToValueX = new KeyValue(lnTo.xProperty(), xEnd);
+        KeyValue lnToValueY = new KeyValue(lnTo.yProperty(), yEnd);
+
+        // Animating and timing
+        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(600), lnToValueX);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lnToValueY);
+        Timeline tl = new Timeline();
+        tl.getKeyFrames().add(keyFrame1);
+        tl.getKeyFrames().add(keyFrame2);
+        tl.play();
+    }
+    private void animateTextMoving(Text text, double xEnd, double yEnd) {
+        // Setting property and its final value
+        KeyValue lnToValueX = new KeyValue(text.xProperty(), xEnd);
+        KeyValue lnToValueY = new KeyValue(text.yProperty(), yEnd);
+
+        // Animating and timing
+        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(600), lnToValueX);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lnToValueY);
+        Timeline tl = new Timeline();
+        tl.getKeyFrames().add(keyFrame1);
+        tl.getKeyFrames().add(keyFrame2);
+        tl.play();
     }
 }
