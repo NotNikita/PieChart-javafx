@@ -136,7 +136,6 @@ public class PieChartNoPath {
         try {
             middleLinesList.set(currentIteration,middleLinePath);
         } catch (IndexOutOfBoundsException e){
-            System.out.println("Произошла ошибка при создании линии: " + e.getMessage());
             middleLinesList.add(middleLinePath);
         }
         return middleLinePath;
@@ -200,6 +199,7 @@ public class PieChartNoPath {
         if(!nameFoundInList){
             dataList.add(data);
         }
+
         setData();
     }
     public void editNode(Data data) {
@@ -302,8 +302,9 @@ public class PieChartNoPath {
             animateLineMoving( middleLinesList.get(j), newLineXY[0], newLineXY[1]);
 
             double[] newTextXY = calculateXYofArcsMiddle(j, 20,'T');
-            animateTextMoving(labelsList.get(j), newTextXY[0], newTextXY[1]);
+            animateTextMoving(labelsList.get(j), newTextXY[0], newTextXY[1], angles[j+1] - angles[j]);
         }
+        //updateTextLabels();
     }
     private void animateArcFromAngleToAngle(Arc element, double startAngle, double targetAngle, double targetLength){
         //Arc already has its old length, but angle = 0
@@ -333,7 +334,11 @@ public class PieChartNoPath {
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
     }
-    private void animateTextMoving(Text text, double xEnd, double yEnd) {
+    private void animateTextMoving(Text text, double xEnd, double yEnd, double newLenght) {
+        // New text
+        String NewText = String.valueOf(Precision.round(newLenght*100 / 360, 2)) + '%';
+        text.setText(NewText);
+
         // Setting property and its final value
         KeyValue lnToValueX = new KeyValue(text.xProperty(), xEnd);
         KeyValue lnToValueY = new KeyValue(text.yProperty(), yEnd);
