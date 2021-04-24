@@ -73,8 +73,8 @@ public class PieChartNoPath {
         // are computed, converted to ints, and stored in angles.
         clearData();
 
-        this.dataCount = dataList.size();
-        angles = new int[dataCount + 1];
+        //this.dataCount = dataList.size();
+        //angles = new int[dataCount + 1];
         middleLinesList = FXCollections.observableArrayList();
         arcsList = FXCollections.observableArrayList();
         labelsList = FXCollections.observableArrayList();
@@ -82,6 +82,8 @@ public class PieChartNoPath {
         calculateAngles();
     }
     private void calculateAngles(){
+        this.dataCount = dataList.size();
+        angles = new int[dataCount + 1];
         angles[0] = 0;
         angles[dataCount] = 360;
         double totalDataSum = 0;
@@ -217,27 +219,41 @@ public class PieChartNoPath {
         // 3. calculating new angles for arcs from dataList
         calculateAngles();
         // 4. Animating text,arc,line
-        for (int j = 0; j < dataCount; j++) {
-            animateArcFromAngleToAngle(arcsList.get(j), oldAngles[j], angles[j], angles[j+1] - angles[j]);
-
-            double[] newLineXY = calculateXYofArcsMiddle(j, 10,'L');
-            animateLineMoving( middleLinesList.get(j), newLineXY[0], newLineXY[1]);
-
-            double[] newTextXY = calculateXYofArcsMiddle(j, 20,'T');
-            animateTextMoving(labelsList.get(j), newTextXY[0], newTextXY[1]);
-        }
+        moveAndAnimateElements(oldAngles);
     }
-
-    public boolean deleteNode(String nodeName) {
+    public void deleteNode(String nodeName) {
+        // 1. Delete dataList's one selected arc (MAIN LOGIC)
+        boolean nameFoundInList = false;
+        int indexOfDeletedNode = 0;
         for (Data node: dataList) {
             if (node.getName().equals(nodeName)){
                 dataList.remove(node);
-                setData();
-                return true;
+                this.dataCount = dataList.size();
+                nameFoundInList = true;
+                break;
             }
+            indexOfDeletedNode++;
         }
+        if (!nameFoundInList) return;
+        // 2. Array of old arc's angles
+        int[] oldAngles = new int[this.angles.length];
+        System.arraycopy(angles, 0, oldAngles, 0, oldAngles.length);
+        calculateAngles();
+        // 3. DELETE ANIMATION
+        Path lineToDelete = middleLinesList.get(indexOfDeletedNode);
+        Arc arcToDelete = arcsList.get(indexOfDeletedNode);
+        Text textToDelete = labelsList.get(indexOfDeletedNode);
 
-        return false;
+        middleLinesList.remove(indexOfDeletedNode);
+        arcsList.remove(indexOfDeletedNode);
+        labelsList.remove(indexOfDeletedNode);
+        animateDeleteElements(arcToDelete, lineToDelete, textToDelete).setOnFinished(event -> {
+            // 4. EDIT
+            moveAndAnimateElements(oldAngles);
+            group.getChildren().remove(arcToDelete);
+            group.getChildren().remove(lineToDelete);
+            group.getChildren().remove(textToDelete);
+        });
     }
 
     private void animateLineFromCenter(Path middleLine){
@@ -278,14 +294,25 @@ public class PieChartNoPath {
     }
 
     // Edit arc functionality
+    private void moveAndAnimateElements(int[] oldAngles){
+        for (int j = 0; j < dataCount; j++) {
+            animateArcFromAngleToAngle(arcsList.get(j), oldAngles[j], angles[j], angles[j+1] - angles[j]);
+
+            double[] newLineXY = calculateXYofArcsMiddle(j, 10,'L');
+            animateLineMoving( middleLinesList.get(j), newLineXY[0], newLineXY[1]);
+
+            double[] newTextXY = calculateXYofArcsMiddle(j, 20,'T');
+            animateTextMoving(labelsList.get(j), newTextXY[0], newTextXY[1]);
+        }
+    }
     private void animateArcFromAngleToAngle(Arc element, double startAngle, double targetAngle, double targetLength){
         //Arc already has its old length, but angle = 0
         element.setStartAngle(startAngle);
         // animating
         KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
         KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(600), angleValue);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lengthValue);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(900), angleValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), lengthValue);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame);
         tl.getKeyFrames().add(keyFrame2);
@@ -299,8 +326,8 @@ public class PieChartNoPath {
         KeyValue lnToValueY = new KeyValue(lnTo.yProperty(), yEnd);
 
         // Animating and timing
-        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(600), lnToValueX);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lnToValueY);
+        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(900), lnToValueX);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), lnToValueY);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame1);
         tl.getKeyFrames().add(keyFrame2);
@@ -312,11 +339,42 @@ public class PieChartNoPath {
         KeyValue lnToValueY = new KeyValue(text.yProperty(), yEnd);
 
         // Animating and timing
-        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(600), lnToValueX);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lnToValueY);
+        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(900), lnToValueX);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), lnToValueY);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame1);
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
+    }
+
+    // Delete
+    private Timeline animateDeleteElements(Arc arcToDelete, Path linePath, Text text){
+        // Here, i want to animate radius and length to 0, so the slice will become tiny at the end
+        KeyValue radiusXValue = new KeyValue(arcToDelete.radiusXProperty(), 0);
+        KeyValue radiusYValue = new KeyValue(arcToDelete.radiusYProperty(), 0);
+        KeyValue lengthValue = new KeyValue(arcToDelete.lengthProperty(), 0);
+        LineTo actualLine  = (LineTo) linePath.getElements().get(1);
+        KeyValue xValue = new KeyValue(actualLine.xProperty(), centerX);
+        KeyValue yValue = new KeyValue(actualLine.yProperty(), centerY);
+
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(900), radiusXValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), radiusYValue);
+        KeyFrame keyFrame3 = new KeyFrame(Duration.millis(900), lengthValue);
+        KeyFrame keyFrame4 = new KeyFrame(Duration.millis(900), xValue);
+        KeyFrame keyFrame5 = new KeyFrame(Duration.millis(900), yValue);
+
+        Timeline tl = new Timeline();
+        tl.getKeyFrames().add(keyFrame);
+        tl.getKeyFrames().add(keyFrame2);
+        tl.getKeyFrames().add(keyFrame3);
+        tl.getKeyFrames().add(keyFrame4);
+        tl.getKeyFrames().add(keyFrame5);
+
+        FadeTransition ft = new FadeTransition(Duration.seconds(0.9), text);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.play();
+        tl.play();
+        return tl;
     }
 }

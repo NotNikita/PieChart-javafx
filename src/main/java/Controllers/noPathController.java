@@ -87,8 +87,7 @@ public class noPathController {
         deleteButton.setOnAction(event ->{
             if(!nameField.getText().trim().isEmpty()){
                 String field_name = nameField.getText();
-                if (customPie.deleteNode(field_name))
-                    customPie.paint();
+                customPie.deleteNode(field_name);
 
                 updateTotalAmountLabel();
             }
