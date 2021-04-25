@@ -1,6 +1,7 @@
 package Controllers;
 
 import Classes.PieChartNoPath;
+import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -95,15 +96,14 @@ public class noPathController {
         
         // Responsive-Scaling behaviour
         apMain.widthProperty().addListener(e -> {
-            //chartPaneContainer.prefWidthProperty().bind(apMain.widthProperty());
-            //chartPaneContainer.setScaleX(); // its void
-            chartPaneContainer.scaleXProperty().bind(this.apMain.widthProperty().divide(apMain.maxWidthProperty()));
+            DoubleBinding scaleValue = this.apMain.widthProperty().divide(apMain.maxWidthProperty());
+            chartPaneContainer.scaleXProperty().bind(scaleValue);
+            chartPaneContainer.scaleYProperty().bind(scaleValue);
         });
         apMain.heightProperty().addListener(e -> {
-            chartPaneContainer.scaleYProperty().bind(this.apMain.heightProperty().divide(apMain.maxHeightProperty()));
-
-            double scalingValue = this.apMain.widthProperty().divide(apMain.maxWidthProperty()).get();
-            System.out.println("Scaling by " + Precision.round(scalingValue, 2));
+            DoubleBinding scaleValue = this.apMain.heightProperty().divide(apMain.maxHeightProperty());
+            chartPaneContainer.scaleXProperty().bind(scaleValue);
+            chartPaneContainer.scaleYProperty().bind(scaleValue);
         });
     }
 

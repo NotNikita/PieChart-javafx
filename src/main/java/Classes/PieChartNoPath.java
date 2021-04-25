@@ -264,9 +264,9 @@ public class PieChartNoPath {
         middleLinesList.remove(indexOfDeletedNode);
         arcsList.remove(indexOfDeletedNode);
         labelsList.remove(indexOfDeletedNode);
-        animateDeleteElements(arcToDelete, lineToDelete, textToDelete).setOnFinished(event -> {
+        animateDeleteElements(arcToDelete, lineToDelete, textToDelete, oldAngles).setOnFinished(event -> {
             // 4. EDIT
-            moveAndAnimateElements(oldAngles);
+
             group.getChildren().remove(arcToDelete);
             group.getChildren().remove(lineToDelete);
             group.getChildren().remove(textToDelete);
@@ -369,7 +369,7 @@ public class PieChartNoPath {
     }
 
     // Delete
-    private Timeline animateDeleteElements(Arc arcToDelete, Path linePath, Text text){
+    private Timeline animateDeleteElements(Arc arcToDelete, Path linePath, Text text, int[] oldAngles){
         // Here, i want to animate radius and length to 0, so the slice will become tiny at the end
         KeyValue radiusXValue = new KeyValue(arcToDelete.radiusXProperty(), 0);
         KeyValue radiusYValue = new KeyValue(arcToDelete.radiusYProperty(), 0);
@@ -396,6 +396,7 @@ public class PieChartNoPath {
         ft.setToValue(0.0);
         ft.play();
         tl.play();
+        moveAndAnimateElements(oldAngles);
         return tl;
     }
 }
