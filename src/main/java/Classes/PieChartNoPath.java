@@ -187,20 +187,37 @@ public class PieChartNoPath {
     }
 
     public void addNode(Data data) {
-        // Because we cant use .contains method
-        boolean nameFoundInList = false;
+        //boolean nameFoundInList = false;
         for (Data node: dataList) {
             if (node.getName().equals(data.getName()))
             {
+                int[] oldAngles = new int[this.angles.length];
+                System.arraycopy(angles, 0, oldAngles, 0, oldAngles.length);
                 node.setPieValue( node.getPieValue() + data.getPieValue() );
-                nameFoundInList = true;
+                //nameFoundInList = true;
+                calculateAngles();
+                moveAndAnimateElements(oldAngles);
+                return;
             }
         }
-        if(!nameFoundInList){
-            dataList.add(data);
-        }
+        dataList.add(data);
+        //if(!nameFoundInList){
+        //    dataList.add(data);
+        //}
 
-        setData();
+        calculateAngles();
+        // here add arc line and label for new data
+        Path middleLinePath = createMiddleLine(dataList.size()-1);
+        Arc createdArc = createArc(dataList.size()-1);
+        Text sliceText = createTextForSlice(createdArc.getLength(), dataList.size()-1);
+        animateLineFromCenter(middleLinePath);
+        animateArcByAngle(createdArc, angles[dataList.size()-1], createdArc.getLength());
+        animateText(sliceText);
+        group.getChildren().add(middleLinePath);
+        group.getChildren().add(createdArc);
+        group.getChildren().add(sliceText);
+        moveAndAnimateElements(angles);
+        //setData();
     }
     public void editNode(Data data) {
         // 1. Array of old arc's angles
@@ -304,7 +321,6 @@ public class PieChartNoPath {
             double[] newTextXY = calculateXYofArcsMiddle(j, 20,'T');
             animateTextMoving(labelsList.get(j), newTextXY[0], newTextXY[1], angles[j+1] - angles[j]);
         }
-        //updateTextLabels();
     }
     private void animateArcFromAngleToAngle(Arc element, double startAngle, double targetAngle, double targetLength){
         //Arc already has its old length, but angle = 0

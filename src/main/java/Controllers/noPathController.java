@@ -70,7 +70,7 @@ public class noPathController {
                 double field_value = Double.parseDouble(valueField.getText());
                 customPie.addNode(new PieChart.Data(field_name, field_value));
 
-                customPie.paint();
+                //customPie.paint();
                 updateTotalAmountLabel();
             }
         });
