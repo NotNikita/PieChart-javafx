@@ -211,13 +211,12 @@ public class PieChartNoPath {
         Arc createdArc = createArc(dataList.size()-1);
         Text sliceText = createTextForSlice(createdArc.getLength(), dataList.size()-1);
         animateLineFromCenter(middleLinePath);
-        animateArcByAngle(createdArc, angles[dataList.size()-1], createdArc.getLength());
+        animateArcFromCenter(createdArc, createdArc.getLength(), createdArc.getRadiusX(), createdArc.getRadiusY());
         animateText(sliceText);
         group.getChildren().add(middleLinePath);
         group.getChildren().add(createdArc);
         group.getChildren().add(sliceText);
         moveAndAnimateElements(angles);
-        //setData();
     }
     public void editNode(Data data) {
         // 1. Array of old arc's angles
@@ -301,6 +300,23 @@ public class PieChartNoPath {
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame);
         tl.getKeyFrames().add(keyFrame2);
+        tl.play();
+    }
+    private void animateArcFromCenter(Arc element, double targetLength, double radX, double radY){
+        element.setLength(0);
+        element.setRadiusX(0);
+        element.setRadiusY(0);
+        KeyValue radiusXValue = new KeyValue(element.radiusXProperty(), radX);
+        KeyValue radiusYValue = new KeyValue(element.radiusYProperty(), radY);
+        KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
+
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(900), radiusXValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), radiusYValue);
+        KeyFrame keyFrame3 = new KeyFrame(Duration.millis(900), lengthValue);
+        Timeline tl = new Timeline();
+        tl.getKeyFrames().add(keyFrame);
+        tl.getKeyFrames().add(keyFrame2);
+        tl.getKeyFrames().add(keyFrame3);
         tl.play();
     }
     private void animateText(Text textToAnimate){
