@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="fix 1.2: масштабирование теперь сохраняет пропорции">
+    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
@@ -193,7 +193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619359635596</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fix 2.2: Add+Delete animation fixed">
+      <created>1619374204893</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1619374204893</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -212,7 +219,8 @@
     <MESSAGE value="fix 6.2: labels now changing when edit\delete" />
     <MESSAGE value="fix 7.0: add functionality fixed" />
     <MESSAGE value="fix 1.2: масштабирование теперь сохраняет пропорции" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix 1.2: масштабирование теперь сохраняет пропорции" />
+    <MESSAGE value="fix 2.2: Add+Delete animation fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix 2.2: Add+Delete animation fixed" />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -243,10 +251,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1619370472032">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1619524771335">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1619370472032" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1619524771335" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -259,38 +267,38 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1617959729443" />
-    <state width="1877" height="2" key="GridCell.Tab.0.bottom" timestamp="1619373357067">
+    <state width="1877" height="2" key="GridCell.Tab.0.bottom" timestamp="1619524790250">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619373357067" />
-    <state width="1877" height="2" key="GridCell.Tab.0.center" timestamp="1619373357066">
+    <state width="1877" height="2" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790250" />
+    <state width="1877" height="2" key="GridCell.Tab.0.center" timestamp="1619524790249">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619373357066" />
-    <state width="1877" height="2" key="GridCell.Tab.0.left" timestamp="1619373357066">
+    <state width="1877" height="2" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790249" />
+    <state width="1877" height="2" key="GridCell.Tab.0.left" timestamp="1619524790249">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619373357066" />
-    <state width="1877" height="2" key="GridCell.Tab.0.right" timestamp="1619373357066">
+    <state width="1877" height="2" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790249" />
+    <state width="1877" height="2" key="GridCell.Tab.0.right" timestamp="1619524790250">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619373357066" />
-    <state width="1877" height="281" key="GridCell.Tab.1.bottom" timestamp="1619373083835">
+    <state width="1877" height="2" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790250" />
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1619436129884">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619373083835" />
-    <state width="1877" height="281" key="GridCell.Tab.1.center" timestamp="1619373083835">
+    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
+    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1619436129884">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619373083835" />
-    <state width="1877" height="281" key="GridCell.Tab.1.left" timestamp="1619373083834">
+    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
+    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1619436129884">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619373083834" />
-    <state width="1877" height="281" key="GridCell.Tab.1.right" timestamp="1619373083835">
+    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
+    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1619436129884">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619373083835" />
+    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
     <state x="490" y="184" key="Maven.ArtifactSearchDialog" timestamp="1615928451341">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -303,10 +311,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1050@0.0.1920.1050" timestamp="1619189148629" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1619349584303">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1619374209356">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1619349584303" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1619374209356" />
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618863897876">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
