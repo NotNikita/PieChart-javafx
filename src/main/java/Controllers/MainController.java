@@ -1,5 +1,6 @@
 package Controllers;
 
+import DB.DatabaseHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -56,6 +57,7 @@ public class MainController {
 
     @FXML
     void initialize() {
+
 
         noPathChartButton.setOnAction(event ->{
             try {

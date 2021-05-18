@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
+    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="fix: Palette colors changed">
+      <change afterPath="$PROJECT_DIR$/src/main/java/DB/Configs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DB/Const.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DB/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/PieChart.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PieChart.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +42,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1pqLdIYuqDxr9FP4iRXTX1y9vNY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -40,8 +53,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/Views" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.20.jar!/" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -76,6 +89,9 @@
         <item itemvalue="Application.MainClass" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -200,8 +216,51 @@
       <option name="project" value="LOCAL" />
       <updated>1619374204893</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fix: Palette colors changed">
+      <created>1619524830777</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1619524830777</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/Никита/IdeaProjects/PieChart/src/main/java/Controllers" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update: PieChart with no Path is done." />
@@ -220,7 +279,8 @@
     <MESSAGE value="fix 7.0: add functionality fixed" />
     <MESSAGE value="fix 1.2: масштабирование теперь сохраняет пропорции" />
     <MESSAGE value="fix 2.2: Add+Delete animation fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix 2.2: Add+Delete animation fixed" />
+    <MESSAGE value="fix: Palette colors changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Palette colors changed" />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -235,6 +295,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="414" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1618154674761" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1621166883340">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1621166883340" />
     <state x="689" y="314" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1618154438528">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -251,10 +315,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1619524771335">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1619694715962">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1619524771335" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1619694715962" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -263,58 +327,58 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="455" height="466" key="DebuggerActiveHint/0.0.1920.1050@0.0.1920.1050" timestamp="1618695348203" />
-    <state x="740" y="270" key="FileChooserDialogImpl" timestamp="1617959729443">
+    <state x="740" y="270" key="FileChooserDialogImpl" timestamp="1619772568923">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1617959729443" />
-    <state width="1877" height="2" key="GridCell.Tab.0.bottom" timestamp="1619524790250">
+    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1619772568923" />
+    <state width="1877" height="205" key="GridCell.Tab.0.bottom" timestamp="1621278664785">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790250" />
-    <state width="1877" height="2" key="GridCell.Tab.0.center" timestamp="1619524790249">
+    <state width="1877" height="205" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
+    <state width="1877" height="205" key="GridCell.Tab.0.center" timestamp="1621278664785">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790249" />
-    <state width="1877" height="2" key="GridCell.Tab.0.left" timestamp="1619524790249">
+    <state width="1877" height="205" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
+    <state width="1877" height="205" key="GridCell.Tab.0.left" timestamp="1621278664785">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790249" />
-    <state width="1877" height="2" key="GridCell.Tab.0.right" timestamp="1619524790250">
+    <state width="1877" height="205" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
+    <state width="1877" height="205" key="GridCell.Tab.0.right" timestamp="1621278664785">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="2" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619524790250" />
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom" timestamp="1619436129884">
+    <state width="1877" height="205" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom" timestamp="1621277125729">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
-    <state width="1877" height="290" key="GridCell.Tab.1.center" timestamp="1619436129884">
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
+    <state width="1877" height="289" key="GridCell.Tab.1.center" timestamp="1621277125729">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
-    <state width="1877" height="290" key="GridCell.Tab.1.left" timestamp="1619436129884">
+    <state width="1877" height="289" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
+    <state width="1877" height="289" key="GridCell.Tab.1.left" timestamp="1621277125729">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
-    <state width="1877" height="290" key="GridCell.Tab.1.right" timestamp="1619436129884">
+    <state width="1877" height="289" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right" timestamp="1621277125729">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="290" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619436129884" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
     <state x="490" y="184" key="Maven.ArtifactSearchDialog" timestamp="1615928451341">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="490" y="184" key="Maven.ArtifactSearchDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1615928451341" />
-    <state x="463" y="171" key="SettingsEditor" timestamp="1618764083750">
+    <state x="463" y="171" key="SettingsEditor" timestamp="1619885011824">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="463" y="171" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1618764083750" />
+    <state x="463" y="171" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1619885011824" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1619189148629">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1050@0.0.1920.1050" timestamp="1619189148629" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1619374209356">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1619524837680">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1619374209356" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1619524837680" />
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618863897876">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -323,6 +387,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="605" y="115" width="710" height="819" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619189149187" />
+    <state x="342" y="230" key="new project wizard" timestamp="1619787520070">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="342" y="230" key="new project wizard/0.0.1920.1050@0.0.1920.1050" timestamp="1619787520070" />
     <state x="702" y="160" key="refactoring.ChangeSignatureDialog" timestamp="1616088666165">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -331,16 +399,17 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619269551417" />
-    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup" timestamp="1619269741398">
+    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup" timestamp="1619891126164">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619269741398" />
+    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619891126164" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="Application">
         <watch expression="this" />
         <watch expression="angles[0]" />
+        <watch expression="pathTransition" />
       </configuration>
     </watches-manager>
   </component>
