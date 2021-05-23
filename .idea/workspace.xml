@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="fix: Palette colors changed">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DB/Configs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DB/Const.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DB/DatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PieChart.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PieChart.iml" afterDir="false" />
+    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619524830777</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="update: huge animation changes">
+      <created>1621354219274</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1621354219274</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,7 +278,8 @@
     <MESSAGE value="fix 1.2: масштабирование теперь сохраняет пропорции" />
     <MESSAGE value="fix 2.2: Add+Delete animation fixed" />
     <MESSAGE value="fix: Palette colors changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: Palette colors changed" />
+    <MESSAGE value="update: huge animation changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="update: huge animation changes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -315,10 +314,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1619694715962">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1621773250319">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1619694715962" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1621773250319" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -331,38 +330,38 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1619772568923" />
-    <state width="1877" height="205" key="GridCell.Tab.0.bottom" timestamp="1621278664785">
+    <state width="1877" height="411" key="GridCell.Tab.0.bottom" timestamp="1621771815577">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
-    <state width="1877" height="205" key="GridCell.Tab.0.center" timestamp="1621278664785">
+    <state width="1877" height="411" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
+    <state width="1877" height="411" key="GridCell.Tab.0.center" timestamp="1621771815577">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
-    <state width="1877" height="205" key="GridCell.Tab.0.left" timestamp="1621278664785">
+    <state width="1877" height="411" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
+    <state width="1877" height="411" key="GridCell.Tab.0.left" timestamp="1621771815577">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
-    <state width="1877" height="205" key="GridCell.Tab.0.right" timestamp="1621278664785">
+    <state width="1877" height="411" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
+    <state width="1877" height="411" key="GridCell.Tab.0.right" timestamp="1621771815577">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621278664785" />
-    <state width="1877" height="289" key="GridCell.Tab.1.bottom" timestamp="1621277125729">
+    <state width="1877" height="411" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom" timestamp="1621368658137">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
-    <state width="1877" height="289" key="GridCell.Tab.1.center" timestamp="1621277125729">
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
+    <state width="1877" height="289" key="GridCell.Tab.1.center" timestamp="1621368658137">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
-    <state width="1877" height="289" key="GridCell.Tab.1.left" timestamp="1621277125729">
+    <state width="1877" height="289" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
+    <state width="1877" height="289" key="GridCell.Tab.1.left" timestamp="1621368658137">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
-    <state width="1877" height="289" key="GridCell.Tab.1.right" timestamp="1621277125729">
+    <state width="1877" height="289" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right" timestamp="1621368658137">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621277125729" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
     <state x="490" y="184" key="Maven.ArtifactSearchDialog" timestamp="1615928451341">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -375,10 +374,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1050@0.0.1920.1050" timestamp="1619189148629" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1619524837680">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1621354232697">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1619524837680" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1621354232697" />
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618863897876">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
