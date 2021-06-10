@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
+    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="refactor: clean code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" afterDir="false" />
     </list>
@@ -221,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621354219274</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="refactor: clean code">
+      <created>1621773295704</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1621773295704</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -279,7 +285,8 @@
     <MESSAGE value="fix 2.2: Add+Delete animation fixed" />
     <MESSAGE value="fix: Palette colors changed" />
     <MESSAGE value="update: huge animation changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: huge animation changes" />
+    <MESSAGE value="refactor: clean code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: clean code" />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -314,10 +321,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1621773250319">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623223558971">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1621773250319" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623223558971" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -330,38 +337,38 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1619772568923" />
-    <state width="1877" height="411" key="GridCell.Tab.0.bottom" timestamp="1621771815577">
+    <state width="1877" height="27" key="GridCell.Tab.0.bottom" timestamp="1623241063440">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="411" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
-    <state width="1877" height="411" key="GridCell.Tab.0.center" timestamp="1621771815577">
+    <state width="1877" height="27" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
+    <state width="1877" height="27" key="GridCell.Tab.0.center" timestamp="1623241063440">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="411" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
-    <state width="1877" height="411" key="GridCell.Tab.0.left" timestamp="1621771815577">
+    <state width="1877" height="27" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
+    <state width="1877" height="27" key="GridCell.Tab.0.left" timestamp="1623241063440">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="411" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
-    <state width="1877" height="411" key="GridCell.Tab.0.right" timestamp="1621771815577">
+    <state width="1877" height="27" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
+    <state width="1877" height="27" key="GridCell.Tab.0.right" timestamp="1623241063440">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="411" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621771815577" />
-    <state width="1877" height="289" key="GridCell.Tab.1.bottom" timestamp="1621368658137">
+    <state width="1877" height="27" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom" timestamp="1623237987243">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
-    <state width="1877" height="289" key="GridCell.Tab.1.center" timestamp="1621368658137">
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
+    <state width="1877" height="289" key="GridCell.Tab.1.center" timestamp="1623237987243">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
-    <state width="1877" height="289" key="GridCell.Tab.1.left" timestamp="1621368658137">
+    <state width="1877" height="289" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
+    <state width="1877" height="289" key="GridCell.Tab.1.left" timestamp="1623237987243">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
-    <state width="1877" height="289" key="GridCell.Tab.1.right" timestamp="1621368658137">
+    <state width="1877" height="289" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right" timestamp="1623237987243">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1621368658137" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
     <state x="490" y="184" key="Maven.ArtifactSearchDialog" timestamp="1615928451341">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -374,10 +381,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1050@0.0.1920.1050" timestamp="1619189148629" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1621354232697">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1621773305223">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1621354232697" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1621773305223" />
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618863897876">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -404,6 +411,15 @@
     <state x="616" y="178" width="672" height="676" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619891126164" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java</url>
+          <line>171</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="this" />

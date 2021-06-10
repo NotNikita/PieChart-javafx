@@ -4,7 +4,6 @@ import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -44,7 +43,7 @@ public class PieChartNoPath {
             Color.rgb(42, 195, 203),
             Color.rgb(154, 139, 231),
     };
-    public PieChartNoPath(ObservableList<PieChart.Data> data, Group root, boolean paintChartClockwise) {
+    public PieChartNoPath(ObservableList<Data> data, Group root, boolean paintChartClockwise) {
         // Set data list and Group
         dataList = data;
         this.group = root;
@@ -104,6 +103,7 @@ public class PieChartNoPath {
         Arc createdArc = createArc(iteration);
         Text sliceText = createTextForSlice(createdArc.getLength(), iteration);
 
+
         animateLineFromCenter(middleLinePath);
         animateArcByAngle(createdArc, angles[iteration], createdArc.getLength());
         animateText(sliceText);
@@ -145,12 +145,13 @@ public class PieChartNoPath {
     private Text createTextForSlice(double length, int iteration) {
         double[] coordinates = calculateXYofArcsMiddle(iteration, 'T');
 
-        String rounded = String.valueOf(Precision.round(length*100 / 360, 2)) + '%';
+        String rounded = String.valueOf(Precision.round(length*100 / 360, 1)) + '%';
         Text text = new Text(coordinates[0], coordinates[1], rounded);
         text.setFill(palette[iteration % palette.length]);
         text.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        text.setTextAlignment(TextAlignment.RIGHT);
-
+        text.setWrappingWidth(90);
+        text.setTextAlignment(TextAlignment.LEFT);
+        text.setTranslateX(-20);
         labelsList.add(text);
         return text;
     }
@@ -168,10 +169,11 @@ public class PieChartNoPath {
 
         if (type =='T'){
             if (labelsList.size() == slicesCount){
-                if (result[0] < centerX) labelsList.get(iteration).setTranslateX(-38);
-                else labelsList.get(iteration).setTranslateX(-10);
+                //if (result[0] < centerX) labelsList.get(iteration).setTranslateX(-55);
+                //else labelsList.get(iteration).setTranslateX(-10);
             }
         }
+
         return result;
     }
     private double calculateMiddleLineAngle(int[] angles, int iteration){
@@ -336,11 +338,12 @@ public class PieChartNoPath {
     }
     private void animateTextMoving(Text text, double[] textFinalPosition, double newLength, double startAngleDegrees, boolean clockwise) {
         // Target text
-        String newText = String.valueOf(Precision.round(newLength*100 / 360, 2)) + '%';
+        String newText = String.valueOf(Precision.round(newLength*100 / 360, 1)) + '%';
         text.setText(newText);
 
         final double startAngleRadians = Math.toRadians(-startAngleDegrees);
         final long startNanoTime = System.nanoTime();
+        final long endNanoTime = startNanoTime + 900000000;
         Thread th = new Thread(()-> new AnimationTimer()
         {
             @Override
@@ -349,11 +352,37 @@ public class PieChartNoPath {
                 // T is for angle and speed at the same time
                 //В зависимости от увеличения или уменьшения угла, надо менять знак
                 // + по часовой, - против
-                double incrementer = (System.nanoTime() - startNanoTime) / 1000000000.0;
-                double t = clockwise?startAngleRadians + incrementer: startAngleRadians - incrementer;
+                double incrementer = (currentNanoTime - startNanoTime) / 1000000000.0;
+                System.out.println(incrementer);
+                double t = clockwise? startAngleRadians + incrementer: startAngleRadians - incrementer;
 
+                //TODO: по одному принципу перемещать линии и кусочки пирога, в одной параллельой транзакции
                 double x = centerX + (radius+30) * Math.cos(t);
                 double y = centerY + (radius+30) * Math.sin(t);
+
+                // Выравнивание относительно четверти на графике
+                if (x < centerX && y < centerY )
+                {
+                    text.setTranslateX(-40);
+                    text.setTranslateY(5);
+                }
+                else if (x < centerX && y > centerY)
+                {
+                    text.setTranslateX(-38);
+                    text.setTranslateY(9);
+                }
+                else if (x > centerX && y < centerY)
+                {
+                    text.setTranslateX(-10);
+                }
+                else if (x > centerX && y > centerY)
+                {
+                    text.setTranslateX(-10);
+                    text.setTranslateY(5);
+                }
+
+                if ((Math.abs(y - centerY) < 20) && x < centerX)
+                    text.setTranslateX(-35 - text.getWrappingWidth() / 10);
 
                 text.setX(x);
                 text.setY(y);
