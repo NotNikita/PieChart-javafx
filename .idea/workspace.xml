@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="refactor: clean code">
+    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621773295704</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="update: text position adjusted by translateX/Y func.">
+      <created>1623310341040</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1623310341040</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -286,7 +292,8 @@
     <MESSAGE value="fix: Palette colors changed" />
     <MESSAGE value="update: huge animation changes" />
     <MESSAGE value="refactor: clean code" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: clean code" />
+    <MESSAGE value="update: text position adjusted by translateX/Y func." />
+    <option name="LAST_COMMIT_MESSAGE" value="update: text position adjusted by translateX/Y func." />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -301,10 +308,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="414" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1618154674761" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1621166883340">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1623312871447">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1621166883340" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1623312871447" />
     <state x="689" y="314" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1618154438528">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -321,10 +328,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623223558971">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623310338763">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623223558971" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623310338763" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -337,38 +344,38 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1619772568923" />
-    <state width="1877" height="27" key="GridCell.Tab.0.bottom" timestamp="1623241063440">
+    <state width="1877" height="87" key="GridCell.Tab.0.bottom" timestamp="1623326639446">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="27" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
-    <state width="1877" height="27" key="GridCell.Tab.0.center" timestamp="1623241063440">
+    <state width="1877" height="87" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623326639446" />
+    <state width="1877" height="87" key="GridCell.Tab.0.center" timestamp="1623326639446">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="27" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
-    <state width="1877" height="27" key="GridCell.Tab.0.left" timestamp="1623241063440">
+    <state width="1877" height="87" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623326639446" />
+    <state width="1877" height="87" key="GridCell.Tab.0.left" timestamp="1623326639446">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="27" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
-    <state width="1877" height="27" key="GridCell.Tab.0.right" timestamp="1623241063440">
+    <state width="1877" height="87" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623326639446" />
+    <state width="1877" height="87" key="GridCell.Tab.0.right" timestamp="1623326639446">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="27" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623241063440" />
-    <state width="1877" height="289" key="GridCell.Tab.1.bottom" timestamp="1623237987243">
+    <state width="1877" height="87" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623326639446" />
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom" timestamp="1623326197425">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
-    <state width="1877" height="289" key="GridCell.Tab.1.center" timestamp="1623237987243">
+    <state width="1877" height="289" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623326197425" />
+    <state width="1877" height="289" key="GridCell.Tab.1.center" timestamp="1623326197425">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
-    <state width="1877" height="289" key="GridCell.Tab.1.left" timestamp="1623237987243">
+    <state width="1877" height="289" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623326197425" />
+    <state width="1877" height="289" key="GridCell.Tab.1.left" timestamp="1623326197425">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
-    <state width="1877" height="289" key="GridCell.Tab.1.right" timestamp="1623237987243">
+    <state width="1877" height="289" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623326197425" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right" timestamp="1623326197425">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623237987243" />
+    <state width="1877" height="289" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623326197425" />
     <state x="490" y="184" key="Maven.ArtifactSearchDialog" timestamp="1615928451341">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -405,17 +412,17 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619269551417" />
-    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup" timestamp="1619891126164">
+    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup" timestamp="1623318431550">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619891126164" />
+    <state x="616" y="178" width="672" height="676" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1623318431550" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java</url>
-          <line>171</line>
+          <line>174</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

@@ -1,6 +1,8 @@
 package Classes;
 
 import javafx.animation.*;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -151,7 +153,8 @@ public class PieChartNoPath {
         text.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
         text.setWrappingWidth(90);
         text.setTextAlignment(TextAlignment.LEFT);
-        text.setTranslateX(-20);
+        text.setTranslateY(5);
+        //text.setTranslateX(-20);
         labelsList.add(text);
         return text;
     }
@@ -279,18 +282,19 @@ public class PieChartNoPath {
             moveArcByAngle(arcsList.get(j), oldAngles[j], angles[j], angles[j+1] - angles[j]);
 
             double[] newXYofLine = calculateXYofArcsMiddle(j,'L');
-            double newMiddleAngle = calculateMiddleLineAngle(oldAngles, j);
+            double startMiddleAngle = calculateMiddleLineAngle(oldAngles, j);
+            double endMiddleAngle = calculateMiddleLineAngle(angles, j);
             double[] newXYofText = calculateXYofArcsMiddle(j,'T');
             Text text = labelsList.get(j);
             //This one is hard
             if (angles[j] < oldAngles[j] || (j==0 && (oldAngles[j+1]-oldAngles[j]) > (angles[j+1]-angles[j]))){
                 //clockwise
-                animateLineMoving( middleLinesList.get(j), newXYofLine[0], newXYofLine[1], newMiddleAngle, true);
-                animateTextMoving(text, newXYofText, angles[j+1] - angles[j], newMiddleAngle, true);
+                animateLineMoving( middleLinesList.get(j), newXYofLine[0], newXYofLine[1], startMiddleAngle,endMiddleAngle, true);
+                animateTextMoving(text, newXYofText, angles[j+1] - angles[j], startMiddleAngle,endMiddleAngle, true);
             } else {
                 //counterclock
-                animateLineMoving( middleLinesList.get(j), newXYofLine[0], newXYofLine[1], newMiddleAngle, false);
-                animateTextMoving(text, newXYofText, angles[j+1] - angles[j], newMiddleAngle, false);
+                animateLineMoving( middleLinesList.get(j), newXYofLine[0], newXYofLine[1], startMiddleAngle,endMiddleAngle, false);
+                animateTextMoving(text, newXYofText, angles[j+1] - angles[j], startMiddleAngle,endMiddleAngle, false);
             }
         }
     }
@@ -307,21 +311,25 @@ public class PieChartNoPath {
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
     }
-    private void animateLineMoving(Path middleLine, double xEnd, double yEnd, double startAngleDegrees, boolean clockwise){
+    private void animateLineMoving(Path middleLine, double xEnd, double yEnd, double startAngleDegrees,double targetAngleDegrees, boolean clockwise){
         final double startAngleRadians = Math.toRadians(-startAngleDegrees);
-        final long startNanoTime = System.nanoTime();
+        double animationDurationMs = 0.9;
+        double updateFrequency = 0.0166;
+        double newIncrementer = Math.abs(Math.toRadians(targetAngleDegrees) - Math.toRadians(startAngleDegrees)) / (animationDurationMs / updateFrequency);
         // Getting our target  line
         LineTo lnTo = (LineTo) middleLine.getElements().get(1);
 
         Thread th = new Thread(()-> new AnimationTimer()
         {
+            private double prevIncrement = updateFrequency;
             @Override
             public void handle(long currentNanoTime)
             {
                 // T is for angle and speed at the same time
                 //В зависимости от увеличения или уменьшения угла, надо менять знак
                 // + по часовой, - против
-                double incrementer = (System.nanoTime() - startNanoTime) / 1000000000.0;
+                double incrementer = prevIncrement + newIncrementer;
+                prevIncrement = incrementer;
                 double t = clockwise? startAngleRadians + incrementer: startAngleRadians - incrementer;
 
                 double x = centerX + (radius+10) * Math.cos(t);
@@ -333,56 +341,39 @@ public class PieChartNoPath {
             }
         }.start());
         th.start();
-
-
     }
-    private void animateTextMoving(Text text, double[] textFinalPosition, double newLength, double startAngleDegrees, boolean clockwise) {
+
+    private void animateTextMoving(Text text, double[] textFinalPosition, double newLength, double startAngleDegrees,double targetAngleDegrees, boolean clockwise) {
         // Target text
         String newText = String.valueOf(Precision.round(newLength*100 / 360, 1)) + '%';
         text.setText(newText);
 
         final double startAngleRadians = Math.toRadians(-startAngleDegrees);
         final long startNanoTime = System.nanoTime();
-        final long endNanoTime = startNanoTime + 900000000;
+        double animationDurationMs = 0.9;
+        double updateFrequency = 0.0166;
+        double newIncrementer = Math.abs(Math.toRadians(targetAngleDegrees - startAngleDegrees) / (animationDurationMs / updateFrequency));
+
         Thread th = new Thread(()-> new AnimationTimer()
         {
+            private double prevIncrement = updateFrequency;
             @Override
             public void handle(long currentNanoTime)
             {
-                // T is for angle and speed at the same time
+                // T is for angle and speed of rotating at the same time
                 //В зависимости от увеличения или уменьшения угла, надо менять знак
                 // + по часовой, - против
-                double incrementer = (currentNanoTime - startNanoTime) / 1000000000.0;
-                System.out.println(incrementer);
-                double t = clockwise? startAngleRadians + incrementer: startAngleRadians - incrementer;
+                prevIncrement += newIncrementer;//(currentNanoTime - startNanoTime) / 1000000000.0;
+                double t = clockwise? startAngleRadians + prevIncrement: startAngleRadians - prevIncrement;
 
-                //TODO: по одному принципу перемещать линии и кусочки пирога, в одной параллельой транзакции
                 double x = centerX + (radius+30) * Math.cos(t);
                 double y = centerY + (radius+30) * Math.sin(t);
 
                 // Выравнивание относительно четверти на графике
-                if (x < centerX && y < centerY )
-                {
-                    text.setTranslateX(-40);
-                    text.setTranslateY(5);
-                }
-                else if (x < centerX && y > centerY)
-                {
-                    text.setTranslateX(-38);
-                    text.setTranslateY(9);
-                }
-                else if (x > centerX && y < centerY)
-                {
-                    text.setTranslateX(-10);
-                }
-                else if (x > centerX && y > centerY)
-                {
-                    text.setTranslateX(-10);
-                    text.setTranslateY(5);
-                }
-
-                if ((Math.abs(y - centerY) < 20) && x < centerX)
-                    text.setTranslateX(-35 - text.getWrappingWidth() / 10);
+                if (x < centerX)
+                    text.setTranslateX(text.getWrappingWidth() / -2.0);
+                else if (x > centerX)
+                    text.setTranslateX(-5);
 
                 text.setX(x);
                 text.setY(y);
