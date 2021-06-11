@@ -5,6 +5,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.paint.Color;
@@ -102,9 +103,12 @@ public class PieChartNoPath {
     }
     private void createSliceElements(int iteration){
         Path middleLinePath = createMiddleLine(iteration);
-        Arc createdArc = createArc(iteration);
-        Text sliceText = createTextForSlice(createdArc.getLength(), iteration);
+        //Arc createdArc = createArc(iteration);
+        //Text sliceText = createTextForSlice(createdArc.getLength(), iteration);
 
+        // TODO: Можно сократить до простой передачи номера итерации
+        Text sliceText = createTextForSlice(angles[iteration+1] - angles[iteration], iteration);
+        Arc createdArc = createArc(iteration);
 
         animateLineFromCenter(middleLinePath);
         animateArcByAngle(createdArc, angles[iteration], createdArc.getLength());
@@ -140,6 +144,15 @@ public class PieChartNoPath {
         arc.setType(ArcType.ROUND);
         arc.setFill(palette[currentIteration % palette.length]);
         if (paintChartClockwise) arc.setStartAngle(360);
+
+
+        Text textForCurrentArc = labelsList.get(currentIteration);
+        arc.lengthProperty().addListener(e->{
+            double currentPercentage = arc.getLength()*100 / 360;
+            String newText = String.valueOf(Precision.round(currentPercentage,1)) + '%';
+            textForCurrentArc.setText(newText);
+        });
+
 
         arcsList.add(arc);
         return arc;
@@ -289,18 +302,18 @@ public class PieChartNoPath {
             //This one is hard
             if (angles[j] < oldAngles[j] || (j==0 && (oldAngles[j+1]-oldAngles[j]) > (angles[j+1]-angles[j]))){
                 //clockwise
-                animateLineMoving( middleLinesList.get(j), newXYofLine[0], newXYofLine[1], startMiddleAngle,endMiddleAngle, true);
+                animateLineMoving( middleLinesList.get(j), newXYofLine, startMiddleAngle,endMiddleAngle, true);
                 animateTextMoving(text, newXYofText, angles[j+1] - angles[j], startMiddleAngle,endMiddleAngle, true);
             } else {
                 //counterclock
-                animateLineMoving( middleLinesList.get(j), newXYofLine[0], newXYofLine[1], startMiddleAngle,endMiddleAngle, false);
+                animateLineMoving( middleLinesList.get(j), newXYofLine, startMiddleAngle,endMiddleAngle, false);
                 animateTextMoving(text, newXYofText, angles[j+1] - angles[j], startMiddleAngle,endMiddleAngle, false);
             }
         }
     }
     private void moveArcByAngle(Arc element, double startAngle, double targetAngle, double targetLength){
         //Arc already has its old length, but angle = 0
-        element.setStartAngle(startAngle);
+        //element.setStartAngle(startAngle);
         // animating
         KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
         KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
@@ -311,7 +324,7 @@ public class PieChartNoPath {
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
     }
-    private void animateLineMoving(Path middleLine, double xEnd, double yEnd, double startAngleDegrees,double targetAngleDegrees, boolean clockwise){
+    private void animateLineMoving(Path middleLine, double[] lineFinalPosition, double startAngleDegrees,double targetAngleDegrees, boolean clockwise){
         final double startAngleRadians = Math.toRadians(-startAngleDegrees);
         double animationDurationMs = 0.9;
         double updateFrequency = 0.0166;
@@ -337,12 +350,12 @@ public class PieChartNoPath {
 
                 lnTo.setX(x);
                 lnTo.setY(y);
-                if ((Math.abs(x - xEnd) < 3) && (Math.abs(y - yEnd) < 3)) this.stop();
+                if ((Math.abs(x - lineFinalPosition[0]) < 3) && (Math.abs(y - lineFinalPosition[1]) < 3)) this.stop();
             }
+
         }.start());
         th.start();
     }
-
     private void animateTextMoving(Text text, double[] textFinalPosition, double newLength, double startAngleDegrees,double targetAngleDegrees, boolean clockwise) {
         // Target text
         String newText = String.valueOf(Precision.round(newLength*100 / 360, 1)) + '%';
@@ -377,7 +390,11 @@ public class PieChartNoPath {
 
                 text.setX(x);
                 text.setY(y);
-                if ((Math.abs(x - textFinalPosition[0]) < 3) && (Math.abs(y - textFinalPosition[1]) < 3)) this.stop();
+                if ((Math.abs(x - textFinalPosition[0]) < 3) && (Math.abs(y - textFinalPosition[1]) < 3)) {
+                    this.stop();
+                    text.setX(textFinalPosition[0]);
+                    text.setY(textFinalPosition[1]);
+                }
             }
         }.start());
         th.start();
@@ -406,26 +423,35 @@ public class PieChartNoPath {
     private Timeline animateDeleteElements(Arc arcToDelete, Path linePath, Text text, int[] oldAngles){
         // Here, i want to animate radius and length to 0, so the slice will become tiny at the end
         KeyValue lengthValue = new KeyValue(arcToDelete.lengthProperty(), 0);
-        KeyValue angleValue = new KeyValue(arcToDelete.startAngleProperty(), 360);
-        LineTo actualLine  = (LineTo) linePath.getElements().get(1);
-        KeyValue xValue = new KeyValue(actualLine.xProperty(), centerX + radius);
-        KeyValue yValue = new KeyValue(actualLine.yProperty(), centerY);
+        //LineTo line  = (LineTo) linePath.getElements().get(1);
+        //KeyValue xValue = new KeyValue(actualLine.xProperty(), centerX + radius);
+        //KeyValue yValue = new KeyValue(actualLine.yProperty(), centerY);
 
-        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(900), angleValue);
+
         KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), lengthValue);
-        KeyFrame keyFrame3 = new KeyFrame(Duration.millis(900), xValue);
-        KeyFrame keyFrame4 = new KeyFrame(Duration.millis(900), yValue);
+        //KeyFrame keyFrame3 = new KeyFrame(Duration.millis(900), xValue);
+        //KeyFrame keyFrame4 = new KeyFrame(Duration.millis(900), yValue);
 
         Timeline tl = new Timeline();
-        tl.getKeyFrames().add(keyFrame1);
-        tl.getKeyFrames().add(keyFrame2);
-        tl.getKeyFrames().add(keyFrame3);
-        tl.getKeyFrames().add(keyFrame4);
+        // if we are deleting first element in List - we dont need to move it
+        if (arcToDelete.getStartAngle() != 0.0){
+            KeyValue angleValue = new KeyValue(arcToDelete.startAngleProperty(), 360);
+            KeyFrame keyFrame1 = new KeyFrame(Duration.millis(900), angleValue);
+            tl.getKeyFrames().add(keyFrame1);
+        }
 
-        FadeTransition ft = new FadeTransition(Duration.seconds(0.7), text);
-        ft.setFromValue(1.0);
-        ft.setToValue(0.0);
-        ft.play();
+        tl.getKeyFrames().add(keyFrame2);
+        //tl.getKeyFrames().add(keyFrame3);
+        //tl.getKeyFrames().add(keyFrame4);
+
+        FadeTransition ftText = new FadeTransition(Duration.seconds(0.7), text);
+        FadeTransition ftLine = new FadeTransition(Duration.seconds(0.7), linePath);
+        ftText.setFromValue(1.0);
+        ftText.setToValue(0.0);
+        ftLine.setFromValue(1.0);
+        ftLine.setToValue(0.0);
+        ftText.play();
+        ftLine.play();
         tl.play();
         moveAndAnimateElements(oldAngles, slicesCount);
         return tl;
