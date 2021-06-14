@@ -19,6 +19,7 @@ public class PieChartNoPath {
     // If you want to change direction of chart - just make this false
     private boolean paintChartClockwise;
     private double animationDurationMs = 900;
+    private int chartStartAngleDeg = 360 + 90; // 360 is 3 o-clock, 450 is 12 o'clock
 
     private int slicesCount;     // The number of data values for the chart.
     private ObservableList<Data> dataList;
@@ -104,16 +105,16 @@ public class PieChartNoPath {
     }
     private void createSliceElements(int iteration){
         Path middleLinePath = createMiddleLine(iteration);
-        //Arc createdArc = createArc(iteration);
-        //Text sliceText = createTextForSlice(createdArc.getLength(), iteration);
-
-        // TODO: Можно сократить до простой передачи номера итерации
         Text sliceText = createTextForSlice(iteration);
         Arc createdArc = createArc(iteration);
 
-        animateLineFromCenter(middleLinePath);
         animateArcByAngle(createdArc, angles[iteration], createdArc.getLength());
-        animateText(sliceText);
+        double targetAngleDeg = calculateMiddleLineAngle(angles, iteration);
+        animateTextAndLineMoving(middleLinePath, sliceText, 360, targetAngleDeg, true);
+            // OLD ANIMATIONS FOR START
+        //animateLineFromCenter(middleLinePath);
+        //animateText(sliceText);
+
 
         group.getChildren().add(middleLinePath);
         group.getChildren().add(createdArc);
@@ -149,9 +150,7 @@ public class PieChartNoPath {
         Text textForCurrentArc = labelsList.get(currentIteration);
         Path lineForCurrentArc = middleLinesList.get(currentIteration);
         arc.lengthProperty().addListener(e->{
-            // TODO: Создать функцию подсчета процентов для арки
-            double currentPercentage = arc.getLength()*100 / 360;
-            String newText = String.valueOf(Precision.round(currentPercentage,1)) + '%';
+            String newText = calculateNewPercentage(arc.getLength());
             textForCurrentArc.setText(newText);
         });
 
@@ -162,7 +161,7 @@ public class PieChartNoPath {
         double[] coordinates = calculateXYofArcsMiddle(iteration, 'T');
         double arcLength = angles[iteration+1] - angles[iteration];
 
-        String rounded = String.valueOf(Precision.round(arcLength*100 / 360, 1)) + '%';
+        String rounded = calculateNewPercentage(arcLength);
         Text text = new Text(coordinates[0], coordinates[1], rounded);
         text.setFill(palette[iteration % palette.length]);
         text.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -183,6 +182,11 @@ public class PieChartNoPath {
         return text;
     }
 
+    //Calculators
+    private String calculateNewPercentage(double arcLength){
+        double currentPercentage = arcLength*100 / 360;
+        return  String.valueOf(Precision.round(currentPercentage,1)) + '%';
+    }
     private double[] calculateXYofArcsMiddle(int iteration, char type){
         // char type: 'L' stands for LINE, 'T' for TEXT
         double overLength = 10;
@@ -194,17 +198,15 @@ public class PieChartNoPath {
         result[0] = centerX + (radius + overLength)*Math.cos(currentAngleRadians);
         result[1] = centerY + (radius + overLength)*Math.sin(currentAngleRadians);
 
-        if (type =='T'){
-            if (labelsList.size() == slicesCount){
-                //if (result[0] < centerX) labelsList.get(iteration).setTranslateX(-55);
-                //else labelsList.get(iteration).setTranslateX(-10);
-            }
-        }
-
         return result;
     }
     private double calculateMiddleLineAngle(int[] angles, int iteration){
         return (angles[iteration+1]-angles[iteration])/2.0 + angles[iteration];
+    }
+    private double calculateIncrementerPerPulse(double startAngleRad, double endAngleRad){
+        double animationDurationSec = animationDurationMs / 1000.0;
+        double updateFrequency = 1 / 60.0; // 60 fps
+        return Math.abs(endAngleRad - startAngleRad) / (animationDurationSec / updateFrequency);
     }
 
     public void addChartSlice(Data data) {
@@ -261,6 +263,7 @@ public class PieChartNoPath {
         deleteSliceElements(indexOfDeletedNode);
     }
 
+    //Start animations
     private void animateLineFromCenter(Path middleLine){
         // Getting our target  line
         LineTo lnTo = (LineTo) middleLine.getElements().get(1);
@@ -364,8 +367,6 @@ public class PieChartNoPath {
                 double xText = centerX + (radius+30) * Math.cos(currAngleRad);
                 double yText = centerY + (radius+30) * Math.sin(currAngleRad);
 
-
-
                 text.setX(xText);
                 text.setY(yText);
                 line.setX(xLine);
@@ -375,11 +376,6 @@ public class PieChartNoPath {
 
         }.start());
         th.start();
-    }
-    private double calculateIncrementerPerPulse(double startAngleRad, double endAngleRad){
-        double animationDurationSec = animationDurationMs / 1000.0;
-        double updateFrequency = 1 / 60.0; // 60 fps
-        return Math.abs(endAngleRad - startAngleRad) / (animationDurationSec / updateFrequency);
     }
 
     // Delete
