@@ -47,7 +47,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -240,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623326961599</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix: deleting 1st element fixed, update: text now animated">
+      <created>1623410940876</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1623410940876</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -301,7 +308,8 @@
     <MESSAGE value="refactor: clean code" />
     <MESSAGE value="update: text position adjusted by translateX/Y func." />
     <MESSAGE value="update: seems, that text, lines and slices moving in sync" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: seems, that text, lines and slices moving in sync" />
+    <MESSAGE value="fix: deleting 1st element fixed, update: text now animated" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: deleting 1st element fixed, update: text now animated" />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -336,10 +344,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623326959293">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623410939141">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623326959293" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623410939141" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -352,22 +360,22 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1623392639289" />
-    <state width="1877" height="111" key="GridCell.Tab.0.bottom" timestamp="1623410749375">
+    <state width="1877" height="122" key="GridCell.Tab.0.bottom" timestamp="1623656063408">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="111" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623410749375" />
-    <state width="1877" height="111" key="GridCell.Tab.0.center" timestamp="1623410749375">
+    <state width="1877" height="122" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623656063408" />
+    <state width="1877" height="122" key="GridCell.Tab.0.center" timestamp="1623656063408">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="111" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623410749375" />
-    <state width="1877" height="111" key="GridCell.Tab.0.left" timestamp="1623410749375">
+    <state width="1877" height="122" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623656063408" />
+    <state width="1877" height="122" key="GridCell.Tab.0.left" timestamp="1623656063408">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="111" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623410749375" />
-    <state width="1877" height="111" key="GridCell.Tab.0.right" timestamp="1623410749375">
+    <state width="1877" height="122" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623656063408" />
+    <state width="1877" height="122" key="GridCell.Tab.0.right" timestamp="1623656063408">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="111" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623410749375" />
+    <state width="1877" height="122" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623656063408" />
     <state width="1877" height="143" key="GridCell.Tab.1.bottom" timestamp="1623404810840">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -388,18 +396,18 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="490" y="184" key="Maven.ArtifactSearchDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1615928451341" />
-    <state x="463" y="171" key="SettingsEditor" timestamp="1623393725857">
+    <state x="463" y="171" key="SettingsEditor" timestamp="1623653180732">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="463" y="171" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1623393725857" />
+    <state x="463" y="171" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1623653180732" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1619189148629">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1050@0.0.1920.1050" timestamp="1619189148629" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1623326971630">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1623412024450">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1623326971630" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1623412024450" />
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618863897876">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -430,7 +438,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java</url>
-          <line>187</line>
+          <line>198</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

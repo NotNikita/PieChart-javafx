@@ -18,6 +18,7 @@ public class PieChartNoPath {
 
     // If you want to change direction of chart - just make this false
     private boolean paintChartClockwise;
+    private double animationDurationMs = 900;
 
     private int slicesCount;     // The number of data values for the chart.
     private ObservableList<Data> dataList;
@@ -107,7 +108,7 @@ public class PieChartNoPath {
         //Text sliceText = createTextForSlice(createdArc.getLength(), iteration);
 
         // TODO: Можно сократить до простой передачи номера итерации
-        Text sliceText = createTextForSlice(angles[iteration+1] - angles[iteration], iteration);
+        Text sliceText = createTextForSlice(iteration);
         Arc createdArc = createArc(iteration);
 
         animateLineFromCenter(middleLinePath);
@@ -145,30 +146,40 @@ public class PieChartNoPath {
         arc.setFill(palette[currentIteration % palette.length]);
         if (paintChartClockwise) arc.setStartAngle(360);
 
-
         Text textForCurrentArc = labelsList.get(currentIteration);
+        Path lineForCurrentArc = middleLinesList.get(currentIteration);
         arc.lengthProperty().addListener(e->{
+            // TODO: Создать функцию подсчета процентов для арки
             double currentPercentage = arc.getLength()*100 / 360;
             String newText = String.valueOf(Precision.round(currentPercentage,1)) + '%';
             textForCurrentArc.setText(newText);
         });
 
-
         arcsList.add(arc);
         return arc;
     }
-    private Text createTextForSlice(double length, int iteration) {
+    private Text createTextForSlice(int iteration) {
         double[] coordinates = calculateXYofArcsMiddle(iteration, 'T');
+        double arcLength = angles[iteration+1] - angles[iteration];
 
-        String rounded = String.valueOf(Precision.round(length*100 / 360, 1)) + '%';
+        String rounded = String.valueOf(Precision.round(arcLength*100 / 360, 1)) + '%';
         Text text = new Text(coordinates[0], coordinates[1], rounded);
         text.setFill(palette[iteration % palette.length]);
         text.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
         text.setWrappingWidth(90);
         text.setTextAlignment(TextAlignment.LEFT);
         text.setTranslateY(5);
-        //text.setTranslateX(-20);
         labelsList.add(text);
+
+        // Выравнивание относительно четверти на графике
+        text.xProperty().addListener(e->{
+            if (text.getX() < centerX)
+                text.setTranslateX(text.getWrappingWidth() / -2.0);
+            else if (text.getX() > centerX)
+                text.setTranslateX(-5);
+        });
+        // TODO: это триггер для фикса начального положения. Убрать, при исправлении начальной анимации.
+        text.setX(text.getX()+0.01);
         return text;
     }
 
@@ -281,7 +292,7 @@ public class PieChartNoPath {
         tl.play();
     }
     private void animateText(Text textToAnimate){
-        FadeTransition ft = new FadeTransition(Duration.millis(2000), textToAnimate);
+        FadeTransition ft = new FadeTransition(Duration.millis(animationDurationMs), textToAnimate);
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();
@@ -292,7 +303,13 @@ public class PieChartNoPath {
         // We use amount because in Add\Delete operations we dont want
         // to animate last element in this func, we have others for this
         for (int j = 0; j < amount; j++) {
-            moveArcByAngle(arcsList.get(j), oldAngles[j], angles[j], angles[j+1] - angles[j]);
+            double targetArcLength = angles[j+1] - angles[j];
+            if (targetArcLength == 0.0)
+                animateFadeDisappear(middleLinesList.get(j), labelsList.get(j));
+            else if (arcsList.get(j).getLength() == 0.0 && targetArcLength > 0.0)
+                animateFadeAppear(middleLinesList.get(j), labelsList.get(j));
+
+            moveArcByAngle(arcsList.get(j), oldAngles[j], angles[j], targetArcLength);
 
             double[] newXYofLine = calculateXYofArcsMiddle(j,'L');
             double startMiddleAngle = calculateMiddleLineAngle(oldAngles, j);
@@ -302,12 +319,10 @@ public class PieChartNoPath {
             //This one is hard
             if (angles[j] < oldAngles[j] || (j==0 && (oldAngles[j+1]-oldAngles[j]) > (angles[j+1]-angles[j]))){
                 //clockwise
-                animateLineMoving( middleLinesList.get(j), newXYofLine, startMiddleAngle,endMiddleAngle, true);
-                animateTextMoving(text, newXYofText, angles[j+1] - angles[j], startMiddleAngle,endMiddleAngle, true);
+                animateTextAndLineMoving(middleLinesList.get(j), text, startMiddleAngle, endMiddleAngle, true);
             } else {
                 //counterclock
-                animateLineMoving( middleLinesList.get(j), newXYofLine, startMiddleAngle,endMiddleAngle, false);
-                animateTextMoving(text, newXYofText, angles[j+1] - angles[j], startMiddleAngle,endMiddleAngle, false);
+                animateTextAndLineMoving(middleLinesList.get(j), text, startMiddleAngle, endMiddleAngle, false);
             }
         }
     }
@@ -317,87 +332,54 @@ public class PieChartNoPath {
         // animating
         KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
         KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(900), angleValue);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), lengthValue);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(animationDurationMs), angleValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(animationDurationMs), lengthValue);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame);
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
     }
-    private void animateLineMoving(Path middleLine, double[] lineFinalPosition, double startAngleDegrees,double targetAngleDegrees, boolean clockwise){
-        final double startAngleRadians = Math.toRadians(-startAngleDegrees);
-        double animationDurationMs = 0.9;
-        double updateFrequency = 0.0166;
-        double newIncrementer = Math.abs(Math.toRadians(targetAngleDegrees) - Math.toRadians(startAngleDegrees)) / (animationDurationMs / updateFrequency);
+    private void animateTextAndLineMoving(Path middleLine, Text text, double startAngleDegrees,double targetAngleDegrees, boolean clockwise){
+
+        double startAngleRadians = Math.toRadians(-startAngleDegrees);
+        double targetAngleRadians = Math.toRadians(-targetAngleDegrees);
+        double newIncrementer = calculateIncrementerPerPulse(startAngleRadians, targetAngleRadians);
         // Getting our target  line
-        LineTo lnTo = (LineTo) middleLine.getElements().get(1);
+        LineTo line = (LineTo) middleLine.getElements().get(1);
 
         Thread th = new Thread(()-> new AnimationTimer()
         {
-            private double prevIncrement = updateFrequency;
+            private double prevIncrement = 1 / 60.0; // 60 FPS view updating
             @Override
             public void handle(long currentNanoTime)
             {
                 // T is for angle and speed at the same time
                 //В зависимости от увеличения или уменьшения угла, надо менять знак
                 // + по часовой, - против
-                double incrementer = prevIncrement + newIncrementer;
-                prevIncrement = incrementer;
-                double t = clockwise? startAngleRadians + incrementer: startAngleRadians - incrementer;
+                prevIncrement += newIncrementer;
+                double currAngleRad = clockwise? startAngleRadians + prevIncrement: startAngleRadians - prevIncrement;
 
-                double x = centerX + (radius+10) * Math.cos(t);
-                double y = centerY + (radius+10) * Math.sin(t);
+                double xLine = centerX + (radius+10) * Math.cos(currAngleRad);
+                double yLine = centerY + (radius+10) * Math.sin(currAngleRad);
+                double xText = centerX + (radius+30) * Math.cos(currAngleRad);
+                double yText = centerY + (radius+30) * Math.sin(currAngleRad);
 
-                lnTo.setX(x);
-                lnTo.setY(y);
-                if ((Math.abs(x - lineFinalPosition[0]) < 3) && (Math.abs(y - lineFinalPosition[1]) < 3)) this.stop();
+
+
+                text.setX(xText);
+                text.setY(yText);
+                line.setX(xLine);
+                line.setY(yLine);
+                if ((Math.abs(currAngleRad - targetAngleRadians) < 0.02)) this.stop();
             }
 
         }.start());
         th.start();
     }
-    private void animateTextMoving(Text text, double[] textFinalPosition, double newLength, double startAngleDegrees,double targetAngleDegrees, boolean clockwise) {
-        // Target text
-        String newText = String.valueOf(Precision.round(newLength*100 / 360, 1)) + '%';
-        text.setText(newText);
-
-        final double startAngleRadians = Math.toRadians(-startAngleDegrees);
-        final long startNanoTime = System.nanoTime();
-        double animationDurationMs = 0.9;
-        double updateFrequency = 0.0166;
-        double newIncrementer = Math.abs(Math.toRadians(targetAngleDegrees - startAngleDegrees) / (animationDurationMs / updateFrequency));
-
-        Thread th = new Thread(()-> new AnimationTimer()
-        {
-            private double prevIncrement = updateFrequency;
-            @Override
-            public void handle(long currentNanoTime)
-            {
-                // T is for angle and speed of rotating at the same time
-                //В зависимости от увеличения или уменьшения угла, надо менять знак
-                // + по часовой, - против
-                prevIncrement += newIncrementer;//(currentNanoTime - startNanoTime) / 1000000000.0;
-                double t = clockwise? startAngleRadians + prevIncrement: startAngleRadians - prevIncrement;
-
-                double x = centerX + (radius+30) * Math.cos(t);
-                double y = centerY + (radius+30) * Math.sin(t);
-
-                // Выравнивание относительно четверти на графике
-                if (x < centerX)
-                    text.setTranslateX(text.getWrappingWidth() / -2.0);
-                else if (x > centerX)
-                    text.setTranslateX(-5);
-
-                text.setX(x);
-                text.setY(y);
-                if ((Math.abs(x - textFinalPosition[0]) < 3) && (Math.abs(y - textFinalPosition[1]) < 3)) {
-                    this.stop();
-                    text.setX(textFinalPosition[0]);
-                    text.setY(textFinalPosition[1]);
-                }
-            }
-        }.start());
-        th.start();
+    private double calculateIncrementerPerPulse(double startAngleRad, double endAngleRad){
+        double animationDurationSec = animationDurationMs / 1000.0;
+        double updateFrequency = 1 / 60.0; // 60 fps
+        return Math.abs(endAngleRad - startAngleRad) / (animationDurationSec / updateFrequency);
     }
 
     // Delete
@@ -428,7 +410,7 @@ public class PieChartNoPath {
         //KeyValue yValue = new KeyValue(actualLine.yProperty(), centerY);
 
 
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(900), lengthValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(animationDurationMs), lengthValue);
         //KeyFrame keyFrame3 = new KeyFrame(Duration.millis(900), xValue);
         //KeyFrame keyFrame4 = new KeyFrame(Duration.millis(900), yValue);
 
@@ -436,7 +418,7 @@ public class PieChartNoPath {
         // if we are deleting first element in List - we dont need to move it
         if (arcToDelete.getStartAngle() != 0.0){
             KeyValue angleValue = new KeyValue(arcToDelete.startAngleProperty(), 360);
-            KeyFrame keyFrame1 = new KeyFrame(Duration.millis(900), angleValue);
+            KeyFrame keyFrame1 = new KeyFrame(Duration.millis(animationDurationMs), angleValue);
             tl.getKeyFrames().add(keyFrame1);
         }
 
@@ -444,8 +426,8 @@ public class PieChartNoPath {
         //tl.getKeyFrames().add(keyFrame3);
         //tl.getKeyFrames().add(keyFrame4);
 
-        FadeTransition ftText = new FadeTransition(Duration.seconds(0.7), text);
-        FadeTransition ftLine = new FadeTransition(Duration.seconds(0.7), linePath);
+        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs), text);
+        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs), linePath);
         ftText.setFromValue(1.0);
         ftText.setToValue(0.0);
         ftLine.setFromValue(1.0);
@@ -455,5 +437,29 @@ public class PieChartNoPath {
         tl.play();
         moveAndAnimateElements(oldAngles, slicesCount);
         return tl;
+    }
+
+    //Text & Line fading animation
+    private void animateFadeDisappear(Path linePath, Text text){
+        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs), text);
+        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs), linePath);
+        ftText.setFromValue(1.0);
+        ftLine.setFromValue(1.0);
+
+        ftText.setToValue(0.0);
+        ftLine.setToValue(0.0);
+        ftText.play();
+        ftLine.play();
+    }
+    private void animateFadeAppear(Path linePath, Text text){
+        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs), text);
+        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs), linePath);
+        ftText.setFromValue(0.0);
+        ftLine.setFromValue(0.0);
+
+        ftText.setToValue(1.0);
+        ftLine.setToValue(1.0);
+        ftText.play();
+        ftLine.play();
     }
 }
