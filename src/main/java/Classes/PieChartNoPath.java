@@ -79,8 +79,8 @@ public class PieChartNoPath {
     private void calculateAngles(){
         this.slicesCount = dataList.size();
         angles = new int[slicesCount + 1];
-        angles[0] = 0;
-        angles[slicesCount] = 360;
+        angles[0] = 90; //0
+        angles[slicesCount] = chartStartAngleDeg; //360
         double totalDataSum = 0;
         for (Data node: dataList) {
             totalDataSum += node.getPieValue();
@@ -88,7 +88,7 @@ public class PieChartNoPath {
         double sum = 0;
         for (int i = 1; i < slicesCount; i++) {
             sum += dataList.get(i-1).getPieValue();
-            angles[i] = (int)(360*sum/totalDataSum + 0.5);
+            angles[i] = (int)( 90 + 360*sum/totalDataSum + 0.5);
         }
     }
 
@@ -110,7 +110,7 @@ public class PieChartNoPath {
 
         animateArcByAngle(createdArc, angles[iteration], createdArc.getLength());
         double targetAngleDeg = calculateMiddleLineAngle(angles, iteration);
-        animateTextAndLineMoving(middleLinePath, sliceText, 360, targetAngleDeg, true);
+        animateTextAndLineMoving(middleLinePath, sliceText, chartStartAngleDeg, targetAngleDeg, true); //360
             // OLD ANIMATIONS FOR START
         //animateLineFromCenter(middleLinePath);
         //animateText(sliceText);
@@ -145,7 +145,7 @@ public class PieChartNoPath {
         Arc arc = new Arc(centerX,centerY,radius,radius, 0, angles[currentIteration+1] - angles[currentIteration]);
         arc.setType(ArcType.ROUND);
         arc.setFill(palette[currentIteration % palette.length]);
-        if (paintChartClockwise) arc.setStartAngle(360);
+        if (paintChartClockwise) arc.setStartAngle(chartStartAngleDeg); //360
 
         Text textForCurrentArc = labelsList.get(currentIteration);
         Path lineForCurrentArc = middleLinesList.get(currentIteration);
