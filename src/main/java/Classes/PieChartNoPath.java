@@ -1,13 +1,13 @@
 package Classes;
 
 import javafx.animation.*;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.chart.PieChart.Data;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
@@ -15,18 +15,25 @@ import javafx.util.Duration;
 import org.apache.commons.math3.util.Precision;
 
 public class PieChartNoPath {
+    Pane container;
+    private Group group;
+    @FXML
+    private Circle chartCircle;
+    @FXML
+    private Label totalNumberLabel;
+    @FXML
+    private Label peopleLabel;
 
     // If you want to change direction of chart - just make this false
     private boolean paintChartClockwise;
-    private double animationDurationMs = 900;
+    private double animationDurationMs = 3000;
     private int chartStartAngleDeg = 360 + 90; // 360 is 3 o-clock, 450 is 12 o'clock
 
-    private int slicesCount;     // The number of data values for the chart.
+    private int slicesCount;     // The number of data for the chart.
     private ObservableList<Data> dataList;
     private ObservableList<Path> middleLinesList;
     private ObservableList<Arc> arcsList;
-    private ObservableList<Text> labelsList;
-    private Group group;
+    private ObservableList<Text> textsList;
 
     // if parent is apMain -> (355,300, radius = centerY - 110)
     // if parent is pane   -> (268,258, radius = 190)
@@ -39,7 +46,7 @@ public class PieChartNoPath {
     // is of size dataCt + 1, and it starts with
     // 0 and ends with 360.
 
-    private final static Color[] palette = {  // Colors for the chart.
+    private final static Color[] palette = {
             // 1st
             Color.rgb(250, 98, 187),
             Color.rgb(100, 239, 199),
@@ -48,10 +55,13 @@ public class PieChartNoPath {
             Color.rgb(42, 195, 203),
             Color.rgb(154, 139, 231),
     };
-    public PieChartNoPath(ObservableList<Data> data, Group root, boolean paintChartClockwise) {
+    public PieChartNoPath(ObservableList<Data> data, Pane container, boolean paintChartClockwise) {
         // Set data list and Group
-        dataList = data;
-        this.group = root;
+        this.dataList = data;
+        this.container = container;
+        this.group = new Group();
+        this.totalNumberLabel = new Label();
+        this.peopleLabel = new Label("people");
         this.paintChartClockwise = paintChartClockwise;
         setData();
     }
@@ -62,6 +72,9 @@ public class PieChartNoPath {
         angles = null;
         // removing old lines,labels from group
         group.getChildren().clear();
+        middleLinesList = FXCollections.observableArrayList();
+        arcsList = FXCollections.observableArrayList();
+        textsList = FXCollections.observableArrayList();
     }
     private void setData() {
         // The data needed to draw the pie chart is computed and stored
@@ -70,21 +83,18 @@ public class PieChartNoPath {
         // is the total of all the data values.  The cumulative angles
         // are computed, converted to ints, and stored in angles.
         refreshData();
-        middleLinesList = FXCollections.observableArrayList();
-        arcsList = FXCollections.observableArrayList();
-        labelsList = FXCollections.observableArrayList();
-
         calculateAngles();
     }
     private void calculateAngles(){
-        this.slicesCount = dataList.size();
+        slicesCount = dataList.size();
         angles = new int[slicesCount + 1];
-        angles[0] = 90; //0
-        angles[slicesCount] = chartStartAngleDeg; //360
+        angles[0] = 90;
+        angles[slicesCount] = chartStartAngleDeg;
         double totalDataSum = 0;
         for (Data node: dataList) {
             totalDataSum += node.getPieValue();
         }
+        totalNumberLabel.setText(String.valueOf(totalDataSum));
         double sum = 0;
         for (int i = 1; i < slicesCount; i++) {
             sum += dataList.get(i-1).getPieValue();
@@ -101,6 +111,7 @@ public class PieChartNoPath {
         for (int i = 0; i < slicesCount; i++) {
             createSliceElements(i);
         }
+        //createTotalSumLabel();
         return group;
     }
     private void createSliceElements(int iteration){
@@ -115,15 +126,13 @@ public class PieChartNoPath {
         //animateLineFromCenter(middleLinePath);
         //animateText(sliceText);
 
-
         group.getChildren().add(middleLinePath);
         group.getChildren().add(createdArc);
         group.getChildren().add(sliceText);
     }
     private Path createMiddleLine(int currentIteration){
         double[] coordinates = calculateXYofArcsMiddle(currentIteration, 'L');
-        Path middleLinePath = new Path(
-                // line from center to middle point of arc
+        Path middleLinePath = new Path( // line from center to middle point of arc
                 new MoveTo(centerX, centerY),
                 new LineTo(coordinates[0], coordinates[1])
         );
@@ -131,24 +140,23 @@ public class PieChartNoPath {
         middleLinePath.setStrokeWidth(5);
 
         try {
-            middleLinesList.set(currentIteration,middleLinePath);
+            middleLinesList.set( currentIteration,middleLinePath );
         } catch (IndexOutOfBoundsException e){
-            middleLinesList.add(middleLinePath);
+            middleLinesList.add( middleLinePath );
         }
         return middleLinePath;
     }
-    private Arc createArc(int currentIteration){
-        // Draw the next wedge.  The start angle for the wedge
+    private Arc createArc(int currIteration){
+        // Draw the next wedge. The start angle for the wedge
         // is angles[i].  The ending angle is angles[i+1}, so
         // the number of degrees in the wedge is
         // angles[i+1] - angles[i].
-        Arc arc = new Arc(centerX,centerY,radius,radius, 0, angles[currentIteration+1] - angles[currentIteration]);
+        Arc arc = new Arc(centerX,centerY,radius,radius, 0, angles[currIteration+1] - angles[currIteration]);
         arc.setType(ArcType.ROUND);
-        arc.setFill(palette[currentIteration % palette.length]);
-        if (paintChartClockwise) arc.setStartAngle(chartStartAngleDeg); //360
+        arc.setFill(palette[currIteration % palette.length]);
+        if (paintChartClockwise) arc.setStartAngle(chartStartAngleDeg);
 
-        Text textForCurrentArc = labelsList.get(currentIteration);
-        Path lineForCurrentArc = middleLinesList.get(currentIteration);
+        Text textForCurrentArc = textsList.get(currIteration);
         arc.lengthProperty().addListener(e->{
             String newText = calculateNewPercentage(arc.getLength());
             textForCurrentArc.setText(newText);
@@ -161,14 +169,12 @@ public class PieChartNoPath {
         double[] coordinates = calculateXYofArcsMiddle(iteration, 'T');
         double arcLength = angles[iteration+1] - angles[iteration];
 
-        String rounded = calculateNewPercentage(arcLength);
-        Text text = new Text(coordinates[0], coordinates[1], rounded);
+        Text text = new Text(coordinates[0], coordinates[1], calculateNewPercentage(arcLength));
         text.setFill(palette[iteration % palette.length]);
         text.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
         text.setWrappingWidth(90);
         text.setTextAlignment(TextAlignment.LEFT);
         text.setTranslateY(5);
-        labelsList.add(text);
 
         // Выравнивание относительно четверти на графике
         text.xProperty().addListener(e->{
@@ -177,9 +183,21 @@ public class PieChartNoPath {
             else if (text.getX() > centerX)
                 text.setTranslateX(-5);
         });
-        // TODO: это триггер для фикса начального положения. Убрать, при исправлении начальной анимации.
-        text.setX(text.getX()+0.01);
+        textsList.add(text);
         return text;
+    }
+    private void createTotalSumLabel(){
+        //String css = this.getClass().getResource("Views/styles.css").toExternalForm();
+        //totalNumberLabel = new Label("123");
+        //totalNumberLabel.getStylesheets().add(css);
+        chartCircle = new Circle(268, 258, 145, Color.rgb(64,66,91));
+        totalNumberLabel = new Label();
+        totalNumberLabel.setFont(Font.font("System", FontWeight.BOLD, 45));
+        peopleLabel = new Label("people");
+        peopleLabel.setFont(Font.font("Lato", 32));
+        peopleLabel.setTextFill(Color.rgb(116,120,173));
+        group.getChildren().add(chartCircle);
+
     }
 
     //Calculators
@@ -224,7 +242,7 @@ public class PieChartNoPath {
         dataList.add(data);
 
         calculateAngles();
-        createSliceElements(dataList.size()-1);
+        createSliceElements(dataList.size() - 1);
         moveAndAnimateElements(oldAngles, slicesCount - 1);
     }
     public void editChartSlice(Data data) {
@@ -287,8 +305,8 @@ public class PieChartNoPath {
         // and length to scale from (0 to its size)  as well
         KeyValue angleValue = new KeyValue(element.startAngleProperty(), targetAngle);
         KeyValue lengthValue = new KeyValue(element.lengthProperty(), targetLength);
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(600), angleValue);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lengthValue);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(animationDurationMs), angleValue);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(animationDurationMs), lengthValue);
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(keyFrame);
         tl.getKeyFrames().add(keyFrame2);
@@ -306,30 +324,28 @@ public class PieChartNoPath {
         // We use amount because in Add\Delete operations we dont want
         // to animate last element in this func, we have others for this
         for (int j = 0; j < amount; j++) {
+            // TODO: Может все таки Listener
             double targetArcLength = angles[j+1] - angles[j];
             if (targetArcLength == 0.0)
-                animateFadeDisappear(middleLinesList.get(j), labelsList.get(j));
+                animateFadeDisappear(middleLinesList.get(j), textsList.get(j));
             else if (arcsList.get(j).getLength() == 0.0 && targetArcLength > 0.0)
-                animateFadeAppear(middleLinesList.get(j), labelsList.get(j));
+                animateFadeAppear(middleLinesList.get(j), textsList.get(j));
 
-            moveArcByAngle(arcsList.get(j), oldAngles[j], angles[j], targetArcLength);
+            moveArcByAngle(arcsList.get(j), angles[j], targetArcLength);
 
-            double[] newXYofLine = calculateXYofArcsMiddle(j,'L');
             double startMiddleAngle = calculateMiddleLineAngle(oldAngles, j);
             double endMiddleAngle = calculateMiddleLineAngle(angles, j);
-            double[] newXYofText = calculateXYofArcsMiddle(j,'T');
-            Text text = labelsList.get(j);
-            //This one is hard
-            if (angles[j] < oldAngles[j] || (j==0 && (oldAngles[j+1]-oldAngles[j]) > (angles[j+1]-angles[j]))){
+            // Эта условие отлавливает направление движения текста и линии - по часовой или против
+            if (startMiddleAngle > endMiddleAngle){
                 //clockwise
-                animateTextAndLineMoving(middleLinesList.get(j), text, startMiddleAngle, endMiddleAngle, true);
+                animateTextAndLineMoving(middleLinesList.get(j), textsList.get(j), startMiddleAngle, endMiddleAngle, true);
             } else {
                 //counterclock
-                animateTextAndLineMoving(middleLinesList.get(j), text, startMiddleAngle, endMiddleAngle, false);
+                animateTextAndLineMoving(middleLinesList.get(j), textsList.get(j), startMiddleAngle, endMiddleAngle, false);
             }
         }
     }
-    private void moveArcByAngle(Arc element, double startAngle, double targetAngle, double targetLength){
+    private void moveArcByAngle(Arc element, double targetAngle, double targetLength){
         //Arc already has its old length, but angle = 0
         //element.setStartAngle(startAngle);
         // animating
@@ -387,11 +403,11 @@ public class PieChartNoPath {
         // 2. DELETE ANIMATION
         Path lineToDelete = middleLinesList.get(iteration);
         Arc arcToDelete = arcsList.get(iteration);
-        Text textToDelete = labelsList.get(iteration);
+        Text textToDelete = textsList.get(iteration);
 
         middleLinesList.remove(iteration);
         arcsList.remove(iteration);
-        labelsList.remove(iteration);
+        textsList.remove(iteration);
         animateDeleteElements(arcToDelete, lineToDelete, textToDelete, oldAngles).setOnFinished(event -> {
             group.getChildren().remove(arcToDelete);
             group.getChildren().remove(lineToDelete);
@@ -401,44 +417,27 @@ public class PieChartNoPath {
     private Timeline animateDeleteElements(Arc arcToDelete, Path linePath, Text text, int[] oldAngles){
         // Here, i want to animate radius and length to 0, so the slice will become tiny at the end
         KeyValue lengthValue = new KeyValue(arcToDelete.lengthProperty(), 0);
-        //LineTo line  = (LineTo) linePath.getElements().get(1);
-        //KeyValue xValue = new KeyValue(actualLine.xProperty(), centerX + radius);
-        //KeyValue yValue = new KeyValue(actualLine.yProperty(), centerY);
-
-
         KeyFrame keyFrame2 = new KeyFrame(Duration.millis(animationDurationMs), lengthValue);
-        //KeyFrame keyFrame3 = new KeyFrame(Duration.millis(900), xValue);
-        //KeyFrame keyFrame4 = new KeyFrame(Duration.millis(900), yValue);
 
         Timeline tl = new Timeline();
-        // if we are deleting first element in List - we dont need to move it
-        if (arcToDelete.getStartAngle() != 0.0){
-            KeyValue angleValue = new KeyValue(arcToDelete.startAngleProperty(), 360);
+        // if we are deleting first element in List(the only one starts in 12 o'clock) - we dont need to move it
+        if (arcToDelete.getStartAngle() != 90.0) {
+            KeyValue angleValue = new KeyValue(arcToDelete.startAngleProperty(), chartStartAngleDeg);
             KeyFrame keyFrame1 = new KeyFrame(Duration.millis(animationDurationMs), angleValue);
             tl.getKeyFrames().add(keyFrame1);
         }
-
         tl.getKeyFrames().add(keyFrame2);
-        //tl.getKeyFrames().add(keyFrame3);
-        //tl.getKeyFrames().add(keyFrame4);
-
-        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs), text);
-        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs), linePath);
-        ftText.setFromValue(1.0);
-        ftText.setToValue(0.0);
-        ftLine.setFromValue(1.0);
-        ftLine.setToValue(0.0);
-        ftText.play();
-        ftLine.play();
         tl.play();
+
+        animateFadeDisappear(linePath, text);
         moveAndAnimateElements(oldAngles, slicesCount);
         return tl;
     }
 
     //Text & Line fading animation
     private void animateFadeDisappear(Path linePath, Text text){
-        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs), text);
-        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs), linePath);
+        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs / 2), text);
+        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs / 2), linePath);
         ftText.setFromValue(1.0);
         ftLine.setFromValue(1.0);
 

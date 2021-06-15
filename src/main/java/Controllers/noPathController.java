@@ -36,11 +36,11 @@ public class noPathController {
     @FXML
     private Label totalNumberLabel;
     @FXML
+    private Label peopleLabel;
+    @FXML
     private TextField valueField;
     @FXML
     private TextField nameField;
-    @FXML
-    private Label peopleLabel;
 
     public noPathController() throws InterruptedException {
         // FOR DEVELOPMENT
@@ -90,9 +90,8 @@ public class noPathController {
 
     @FXML
     void initialize() {
-        Group root = new Group();
-        customPie = new PieChartNoPath(dataList, root, true);
-        root = customPie.paint();
+        customPie = new PieChartNoPath(dataList, chartPaneContainer, true);
+        Group root = customPie.paint();
         chartPaneContainer.getChildren().add(root);
         chartPaneContainer.getChildren().add(chartCircle);
         chartPaneContainer.getChildren().add(peopleLabel);
