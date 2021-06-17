@@ -1,4 +1,4 @@
-package DB;
+package db;
 
 public class Configs {
     protected String dbHost = "localhost";

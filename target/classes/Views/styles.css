@@ -42,9 +42,17 @@
 /*------ CIRCLE STYLES START-----*/
 
 .circle_above_chart {
-    -fx-background-color: #40425B;
+    -fx-fill: #40425B;
     -fx-border-width: 0px;
 }
 .total_amount {
     -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font: 45px "System", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+.people_label {
+    -fx-text-fill: #7478AD;
+    -fx-font: 32px "Lato", sans-serif;
 }

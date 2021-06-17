@@ -1,4 +1,4 @@
-package DB;
+package db;
 
 public class Const {
     // Table cash registers

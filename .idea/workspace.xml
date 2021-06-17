@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="update: chart starts from 12 0'clock position">
+    <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/PieChartNoPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/NoPathController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DB/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/Configs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DB/Const.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/Const.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DB/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Views/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +57,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../simplesocketexample" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/Controllers" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -52,18 +65,19 @@
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Никита\IdeaProjects\PieChart\src\main\java\Classes" />
-      <recent name="C:\Users\Никита\IdeaProjects\TreeTableView\src\main\resources\Views" />
-      <recent name="C:\Users\Никита\IdeaProjects\TreeTableView\src\main\resources\Assets" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Controllers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Никита\IdeaProjects\PieChart\src\main\java\Controllers" />
       <recent name="C:\Users\Никита\IdeaProjects\PieChart\src\main\resources\Views" />
       <recent name="C:\Users\Никита\IdeaProjects\TreeTableView\target\classes\Assets" />
       <recent name="C:\Users\Никита\IdeaProjects\TreeTableView\src\main\resources\Views" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="Controllers" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Никита\IdeaProjects\PieChart\src\main\java\Classes" />
+      <recent name="C:\Users\Никита\IdeaProjects\TreeTableView\src\main\resources\Views" />
+      <recent name="C:\Users\Никита\IdeaProjects\TreeTableView\src\main\resources\Assets" />
     </key>
   </component>
   <component name="RunManager">
@@ -270,7 +284,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623663491249</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="fix: clean code">
+      <created>1623742389372</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1623742389372</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,7 +331,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update: PieChart with no Path is done." />
     <MESSAGE value="update: label, that displays total number of people is now working. in PieChartNoPath." />
     <MESSAGE value="fix: issue with adding slice fixed." />
     <MESSAGE value="update: ChartNoPath scene is now prettier." />
@@ -335,7 +355,8 @@
     <MESSAGE value="fix: global anim. dur. variable. FadeOut text&amp;line when length=0. Start text pos. fixed." />
     <MESSAGE value="update: text &amp; lines follow arcs on start animation" />
     <MESSAGE value="update: chart starts from 12 0'clock position" />
-    <option name="LAST_COMMIT_MESSAGE" value="update: chart starts from 12 0'clock position" />
+    <MESSAGE value="fix: clean code" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: clean code" />
   </component>
   <component name="WindowStateProjectService">
     <state x="686" y="194" key="#MainClass" timestamp="1617959711919">
@@ -354,10 +375,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="414" y="184" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1618154674761" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1623312871447">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1623913738749">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1623312871447" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1623913738749" />
     <state x="689" y="314" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1618154438528">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -374,10 +395,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623670966546">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623742386533">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623670966546" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623742386533" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -390,38 +411,38 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1623392639289" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1623741368323">
+    <state width="1877" height="271" key="GridCell.Tab.0.bottom" timestamp="1623916515046">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623741368323" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1623741368323">
+    <state width="1877" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
+    <state width="1877" height="271" key="GridCell.Tab.0.center" timestamp="1623916515046">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623741368323" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1623741368323">
+    <state width="1877" height="271" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
+    <state width="1877" height="271" key="GridCell.Tab.0.left" timestamp="1623916515046">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623741368323" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1623741368323">
+    <state width="1877" height="271" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
+    <state width="1877" height="271" key="GridCell.Tab.0.right" timestamp="1623916515046">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623741368323" />
-    <state width="1877" height="221" key="GridCell.Tab.1.bottom" timestamp="1623738006172">
+    <state width="1877" height="271" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
+    <state width="1877" height="221" key="GridCell.Tab.1.bottom" timestamp="1623769491095">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623738006172" />
-    <state width="1877" height="221" key="GridCell.Tab.1.center" timestamp="1623738006172">
+    <state width="1877" height="221" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491095" />
+    <state width="1877" height="221" key="GridCell.Tab.1.center" timestamp="1623769491094">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623738006172" />
-    <state width="1877" height="221" key="GridCell.Tab.1.left" timestamp="1623738006172">
+    <state width="1877" height="221" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491094" />
+    <state width="1877" height="221" key="GridCell.Tab.1.left" timestamp="1623769491094">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623738006172" />
-    <state width="1877" height="221" key="GridCell.Tab.1.right" timestamp="1623738006172">
+    <state width="1877" height="221" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491094" />
+    <state width="1877" height="221" key="GridCell.Tab.1.right" timestamp="1623769491095">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623738006172" />
+    <state width="1877" height="221" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491095" />
     <state x="490" y="184" key="Maven.ArtifactSearchDialog" timestamp="1615928451341">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -434,18 +455,22 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1050@0.0.1920.1050" timestamp="1619189148629" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1623663599925">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1623742399359">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1623663599925" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1623742399359" />
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618863897876">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050@0.0.1920.1050" timestamp="1618863897876" />
-    <state x="605" y="115" width="710" height="819" key="find.popup" timestamp="1619189149187">
+    <state x="690" y="288" key="extract.method.dialog" timestamp="1623916070277">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="605" y="115" width="710" height="819" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1619189149187" />
+    <state x="690" y="288" key="extract.method.dialog/0.0.1920.1050@0.0.1920.1050" timestamp="1623916070277" />
+    <state x="605" y="115" width="710" height="819" key="find.popup" timestamp="1623917563644">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="605" y="115" width="710" height="819" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1623917563644" />
     <state x="342" y="230" key="new project wizard" timestamp="1619787520070">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -464,6 +489,15 @@
     <state x="616" y="178" width="672" height="676" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1623318431550" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/classes/PieChartNoPath.java</url>
+          <line>171</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="this" />

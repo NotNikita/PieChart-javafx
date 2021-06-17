@@ -1,10 +1,11 @@
-package Classes;
+package classes;
 
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -14,19 +15,18 @@ import javafx.scene.text.*;
 import javafx.util.Duration;
 import org.apache.commons.math3.util.Precision;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class PieChartNoPath {
-    Pane container;
+    private Pane container;
     private Group group;
-    @FXML
     private Circle chartCircle;
-    @FXML
     private Label totalNumberLabel;
-    @FXML
     private Label peopleLabel;
 
     // If you want to change direction of chart - just make this false
     private boolean paintChartClockwise;
-    private double animationDurationMs = 3000;
+    private double animationDurationMs = 900;
     private int chartStartAngleDeg = 360 + 90; // 360 is 3 o-clock, 450 is 12 o'clock
 
     private int slicesCount;     // The number of data for the chart.
@@ -71,18 +71,17 @@ public class PieChartNoPath {
         slicesCount = 0;
         angles = null;
         // removing old lines,labels from group
-        group.getChildren().clear();
         middleLinesList = FXCollections.observableArrayList();
         arcsList = FXCollections.observableArrayList();
         textsList = FXCollections.observableArrayList();
     }
     private void setData() {
+        refreshData();
         // The data needed to draw the pie chart is computed and stored
         // in the angles array.  Note that the number of degrees
         // in the i-th wedge is 360*data[i]/dataSum, where dataSum
         // is the total of all the data values.  The cumulative angles
         // are computed, converted to ints, and stored in angles.
-        refreshData();
         calculateAngles();
     }
     private void calculateAngles(){
@@ -90,11 +89,7 @@ public class PieChartNoPath {
         angles = new int[slicesCount + 1];
         angles[0] = 90;
         angles[slicesCount] = chartStartAngleDeg;
-        double totalDataSum = 0;
-        for (Data node: dataList) {
-            totalDataSum += node.getPieValue();
-        }
-        totalNumberLabel.setText(String.valueOf(totalDataSum));
+        double totalDataSum = updateTotalAmountLabel();
         double sum = 0;
         for (int i = 1; i < slicesCount; i++) {
             sum += dataList.get(i-1).getPieValue();
@@ -102,18 +97,18 @@ public class PieChartNoPath {
         }
     }
 
-    public Group paint() {
+    public void paint() {
         if (slicesCount == 0) {
             System.out.println("No data available in method Paint.");
-            return null;
+            return;
         }
 
         for (int i = 0; i < slicesCount; i++) {
             createSliceElements(i);
         }
-        //createTotalSumLabel();
-        return group;
+        createLabelsInsideChart();
     }
+
     private void createSliceElements(int iteration){
         Path middleLinePath = createMiddleLine(iteration);
         Text sliceText = createTextForSlice(iteration);
@@ -121,10 +116,7 @@ public class PieChartNoPath {
 
         animateArcByAngle(createdArc, angles[iteration], createdArc.getLength());
         double targetAngleDeg = calculateMiddleLineAngle(angles, iteration);
-        animateTextAndLineMoving(middleLinePath, sliceText, chartStartAngleDeg, targetAngleDeg, true); //360
-            // OLD ANIMATIONS FOR START
-        //animateLineFromCenter(middleLinePath);
-        //animateText(sliceText);
+        animateTextAndLineMoving(middleLinePath, sliceText, chartStartAngleDeg, targetAngleDeg, true);
 
         group.getChildren().add(middleLinePath);
         group.getChildren().add(createdArc);
@@ -161,6 +153,13 @@ public class PieChartNoPath {
             String newText = calculateNewPercentage(arc.getLength());
             textForCurrentArc.setText(newText);
         });
+        arc.hoverProperty().addListener( e -> {
+            Data d = dataList.get(currIteration);
+            Label label = new Label(d.getName() + " is " + d.getPieValue());
+            label.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
+            label.setTextFill(Color.SILVER);
+
+        });
 
         arcsList.add(arc);
         return arc;
@@ -186,18 +185,29 @@ public class PieChartNoPath {
         textsList.add(text);
         return text;
     }
-    private void createTotalSumLabel(){
-        //String css = this.getClass().getResource("Views/styles.css").toExternalForm();
-        //totalNumberLabel = new Label("123");
-        //totalNumberLabel.getStylesheets().add(css);
-        chartCircle = new Circle(268, 258, 145, Color.rgb(64,66,91));
-        totalNumberLabel = new Label();
-        totalNumberLabel.setFont(Font.font("System", FontWeight.BOLD, 45));
-        peopleLabel = new Label("people");
-        peopleLabel.setFont(Font.font("Lato", 32));
-        peopleLabel.setTextFill(Color.rgb(116,120,173));
-        group.getChildren().add(chartCircle);
+    private void createLabelsInsideChart(){
+        chartCircle = new Circle(centerX, centerY, 145);
+        chartCircle.getStyleClass().add("circle_above_chart");
 
+        totalNumberLabel = new Label("100,000");
+        totalNumberLabel.setLayoutX(182);
+        totalNumberLabel.setLayoutY(193);
+        totalNumberLabel.setPrefWidth(178);
+        totalNumberLabel.getStyleClass().add("total_amount");
+
+        peopleLabel.setLayoutX(223);
+        peopleLabel.setLayoutY(246);
+        peopleLabel.getStyleClass().add("people_label");
+
+        group.getChildren().add(chartCircle);
+        container.getChildren().add(group);
+        container.getChildren().add(chartCircle);
+        container.getChildren().add(peopleLabel);
+        container.getChildren().add(totalNumberLabel);
+
+        chartCircle.toFront();
+        peopleLabel.toFront();
+        totalNumberLabel.toFront();
     }
 
     //Calculators
@@ -226,6 +236,14 @@ public class PieChartNoPath {
         double updateFrequency = 1 / 60.0; // 60 fps
         return Math.abs(endAngleRad - startAngleRad) / (animationDurationSec / updateFrequency);
     }
+    public double updateTotalAmountLabel(){
+        int totalDataSum = 0;
+        for (PieChart.Data node: dataList) {
+            totalDataSum += node.getPieValue();
+        }
+        totalNumberLabel.setText(String.valueOf(totalDataSum));
+        return totalDataSum;
+    }
 
     public void addChartSlice(Data data) {
         int[] oldAngles = new int[this.angles.length];
@@ -244,6 +262,7 @@ public class PieChartNoPath {
         calculateAngles();
         createSliceElements(dataList.size() - 1);
         moveAndAnimateElements(oldAngles, slicesCount - 1);
+        updateTotalAmountLabel();
     }
     public void editChartSlice(Data data) {
         // 1. Array of old arc's angles
@@ -263,6 +282,7 @@ public class PieChartNoPath {
         calculateAngles();
         // 4. Animating text,arc,line
         moveAndAnimateElements(oldAngles, slicesCount);
+        updateTotalAmountLabel();
     }
     public void deleteChartSlice(String nodeName) {
         // 1. Delete dataList's one selected arc (MAIN LOGIC)
@@ -279,26 +299,9 @@ public class PieChartNoPath {
         }
         if (!nameFoundInList) return;
         deleteSliceElements(indexOfDeletedNode);
+        updateTotalAmountLabel();
     }
 
-    //Start animations
-    private void animateLineFromCenter(Path middleLine){
-        // Getting our target  line
-        LineTo lnTo = (LineTo) middleLine.getElements().get(1);
-        // Setting property and its final value
-        KeyValue lnToValueX = new KeyValue(lnTo.xProperty(), lnTo.getX());
-        KeyValue lnToValueY = new KeyValue(lnTo.yProperty(), lnTo.getY());
-        // Setting property's start value to the center of circle
-        lnTo.setX(centerX);
-        lnTo.setY(centerY);
-        // Animating and timing
-        KeyFrame keyFrame1 = new KeyFrame(Duration.millis(600), lnToValueX);
-        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(600), lnToValueY);
-        Timeline tl = new Timeline();
-        tl.getKeyFrames().add(keyFrame1);
-        tl.getKeyFrames().add(keyFrame2);
-        tl.play();
-    }
     private void animateArcByAngle(Arc element, double targetAngle, double targetLength){
         element.setLength(0);
         // We want to animateArcByAngle pieSlice from 360* to another degree
@@ -311,12 +314,6 @@ public class PieChartNoPath {
         tl.getKeyFrames().add(keyFrame);
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
-    }
-    private void animateText(Text textToAnimate){
-        FadeTransition ft = new FadeTransition(Duration.millis(animationDurationMs), textToAnimate);
-        ft.setFromValue(0.0);
-        ft.setToValue(1.0);
-        ft.play();
     }
 
     // Edit arc functionality

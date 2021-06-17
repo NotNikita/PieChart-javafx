@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="669.0" prefWidth="1147.0" styleClass="main__anchor" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <Button id="edit-btn" fx:id="noPathChartButton" layoutX="763.0" layoutY="246.0" mnemonicParsing="false"
            prefHeight="105.0" prefWidth="220.0" styleClass="table__button" text="No Path">
       <font>
