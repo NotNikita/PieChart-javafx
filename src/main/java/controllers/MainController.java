@@ -26,7 +26,7 @@ public class MainController implements Initializable {
                 String fxmlFile = "/Views/noPathChart.fxml";
                 FXMLLoader loader = new FXMLLoader();
                 Parent parent = loader.load(getClass().getResourceAsStream(fxmlFile));
-                Scene scene = new Scene(parent, 1048,634);
+                Scene scene = new Scene(parent, 1250,634);
                 scene.getStylesheets().add("Views/styles.css");
                 Stage stage = new Stage();
                 stage.setScene(scene);

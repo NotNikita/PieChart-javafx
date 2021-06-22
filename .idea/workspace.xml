@@ -3,22 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="adcfbe3f-9571-433d-ba49-592c325a2448" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/PieChartNoPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/noPathController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/NoPathController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DB/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/Configs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DB/Const.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/Const.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DB/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/DatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classes/PieChartNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/PieChartNoPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/noPathChart.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Views/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Views/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Classes/PieChartNoPath.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/MainController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/noPathController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/noPathChart.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Views/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Views/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,8 +48,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/Controllers" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webservice" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -291,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623742389372</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="fix: clean code">
+      <created>1623918178410</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1623918178410</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -395,70 +393,70 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="276" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1617958070704" />
-    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623742386533">
+    <state x="627" y="121" key="CommitChangelistDialog2" timestamp="1623918174543">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623742386533" />
+    <state x="627" y="121" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1623918174543" />
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog" timestamp="1615929076742">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="170" y="261" key="DBNavigator.ProjectSettingsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1615929076742" />
-    <state width="455" height="466" key="DebuggerActiveHint" timestamp="1623661992458">
+    <state width="455" height="466" key="DebuggerActiveHint" timestamp="1623928222345">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="455" height="466" key="DebuggerActiveHint/0.0.1920.1050@0.0.1920.1050" timestamp="1623661992458" />
-    <state x="740" y="270" key="FileChooserDialogImpl" timestamp="1623392639289">
+    <state width="455" height="466" key="DebuggerActiveHint/0.0.1920.1050@0.0.1920.1050" timestamp="1623928222345" />
+    <state x="740" y="270" key="FileChooserDialogImpl" timestamp="1624005922023">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1623392639289" />
-    <state width="1877" height="271" key="GridCell.Tab.0.bottom" timestamp="1623916515046">
+    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1624005922023" />
+    <state width="1877" height="103" key="GridCell.Tab.0.bottom" timestamp="1624357036514">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
-    <state width="1877" height="271" key="GridCell.Tab.0.center" timestamp="1623916515046">
+    <state width="1877" height="103" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1624357036514" />
+    <state width="1877" height="103" key="GridCell.Tab.0.center" timestamp="1624357036514">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
-    <state width="1877" height="271" key="GridCell.Tab.0.left" timestamp="1623916515046">
+    <state width="1877" height="103" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1624357036514" />
+    <state width="1877" height="103" key="GridCell.Tab.0.left" timestamp="1624357036513">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
-    <state width="1877" height="271" key="GridCell.Tab.0.right" timestamp="1623916515046">
+    <state width="1877" height="103" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1624357036513" />
+    <state width="1877" height="103" key="GridCell.Tab.0.right" timestamp="1624357036514">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623916515046" />
-    <state width="1877" height="221" key="GridCell.Tab.1.bottom" timestamp="1623769491095">
+    <state width="1877" height="103" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1624357036514" />
+    <state width="1877" height="225" key="GridCell.Tab.1.bottom" timestamp="1624355793118">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491095" />
-    <state width="1877" height="221" key="GridCell.Tab.1.center" timestamp="1623769491094">
+    <state width="1877" height="225" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1624355793118" />
+    <state width="1877" height="225" key="GridCell.Tab.1.center" timestamp="1624355793118">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491094" />
-    <state width="1877" height="221" key="GridCell.Tab.1.left" timestamp="1623769491094">
+    <state width="1877" height="225" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1624355793118" />
+    <state width="1877" height="225" key="GridCell.Tab.1.left" timestamp="1624355793118">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491094" />
-    <state width="1877" height="221" key="GridCell.Tab.1.right" timestamp="1623769491095">
+    <state width="1877" height="225" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1624355793118" />
+    <state width="1877" height="225" key="GridCell.Tab.1.right" timestamp="1624355793118">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="221" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1623769491095" />
+    <state width="1877" height="225" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1624355793118" />
     <state x="490" y="184" key="Maven.ArtifactSearchDialog" timestamp="1615928451341">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="490" y="184" key="Maven.ArtifactSearchDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1615928451341" />
-    <state x="463" y="171" key="SettingsEditor" timestamp="1623653180732">
+    <state x="463" y="171" key="SettingsEditor" timestamp="1624352132158">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="463" y="171" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1623653180732" />
+    <state x="463" y="171" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1624352132158" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1619189148629">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1050@0.0.1920.1050" timestamp="1619189148629" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1623742399359">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1623918183619">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1623742399359" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1623918183619" />
     <state x="771" y="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1618863897876">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -489,20 +487,10 @@
     <state x="616" y="178" width="672" height="676" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1623318431550" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/classes/PieChartNoPath.java</url>
-          <line>171</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="this" />
         <watch expression="angles[0]" />
-        <watch expression="pathTransition" />
       </configuration>
     </watches-manager>
   </component>

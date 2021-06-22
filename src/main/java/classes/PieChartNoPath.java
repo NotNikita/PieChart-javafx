@@ -3,18 +3,24 @@ package classes;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 import org.apache.commons.math3.util.Precision;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class PieChartNoPath {
@@ -23,6 +29,8 @@ public class PieChartNoPath {
     private Circle chartCircle;
     private Label totalNumberLabel;
     private Label peopleLabel;
+    private VBox legendContainer;
+    private SliceElementsCreator sliceElementsCreator;
 
     // If you want to change direction of chart - just make this false
     private boolean paintChartClockwise;
@@ -55,10 +63,12 @@ public class PieChartNoPath {
             Color.rgb(42, 195, 203),
             Color.rgb(154, 139, 231),
     };
+
     public PieChartNoPath(ObservableList<Data> data, Pane container, boolean paintChartClockwise) {
         // Set data list and Group
         this.dataList = data;
         this.container = container;
+        this.legendContainer = new VBox(15);
         this.group = new Group();
         this.totalNumberLabel = new Label();
         this.peopleLabel = new Label("people");
@@ -102,88 +112,78 @@ public class PieChartNoPath {
             System.out.println("No data available in method Paint.");
             return;
         }
+        createLabelsInsideChart();
 
+        sliceElementsCreator = new SliceElementsCreator(animationDurationMs);
         for (int i = 0; i < slicesCount; i++) {
             createSliceElements(i);
+            animateSliceElements(i);
         }
-        createLabelsInsideChart();
     }
 
     private void createSliceElements(int iteration){
-        Path middleLinePath = createMiddleLine(iteration);
-        Text sliceText = createTextForSlice(iteration);
-        Arc createdArc = createArc(iteration);
+        ArrayList<Object> container = sliceElementsCreator.createSliceElements(iteration, dataList.get(iteration), this.angles);
 
-        animateArcByAngle(createdArc, angles[iteration], createdArc.getLength());
-        double targetAngleDeg = calculateMiddleLineAngle(angles, iteration);
-        animateTextAndLineMoving(middleLinePath, sliceText, chartStartAngleDeg, targetAngleDeg, true);
-
-        group.getChildren().add(middleLinePath);
-        group.getChildren().add(createdArc);
-        group.getChildren().add(sliceText);
-    }
-    private Path createMiddleLine(int currentIteration){
-        double[] coordinates = calculateXYofArcsMiddle(currentIteration, 'L');
-        Path middleLinePath = new Path( // line from center to middle point of arc
-                new MoveTo(centerX, centerY),
-                new LineTo(coordinates[0], coordinates[1])
-        );
-        middleLinePath.setStroke(palette[currentIteration % palette.length]);
-        middleLinePath.setStrokeWidth(5);
+        Path middleLinePath = (Path) container.get(0);
+        Text sliceText = (Text) container.get(1);
+        Arc createdArc = (Arc) container.get(2);
 
         try {
-            middleLinesList.set( currentIteration,middleLinePath );
+            middleLinesList.set( iteration, middleLinePath );
         } catch (IndexOutOfBoundsException e){
             middleLinesList.add( middleLinePath );
         }
-        return middleLinePath;
+        createdArc.lengthProperty().addListener(e->{
+            String newText = calculateNewPercentage(createdArc.getLength());
+            sliceText.setText(newText);
+        });
+        sliceText.xProperty().addListener(e->{
+            if (sliceText.getX() < centerX)
+                sliceText.setTranslateX(sliceText.getWrappingWidth() / -2.0);
+            else if (sliceText.getX() > centerX)
+                sliceText.setTranslateX(-5);
+        });
+        createdArc.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                textsList.get(iteration).setText(dataList.get(iteration).getName());
+            } else {
+                textsList.get(iteration).setText(calculateNewPercentage(createdArc.getLength()));
+            }
+        });
+
+        createLabelForLegend(iteration);
+
+        textsList.add(sliceText);
+        arcsList.add(createdArc);
     }
-    private Arc createArc(int currIteration){
-        // Draw the next wedge. The start angle for the wedge
-        // is angles[i].  The ending angle is angles[i+1}, so
-        // the number of degrees in the wedge is
-        // angles[i+1] - angles[i].
-        Arc arc = new Arc(centerX,centerY,radius,radius, 0, angles[currIteration+1] - angles[currIteration]);
-        arc.setType(ArcType.ROUND);
-        arc.setFill(palette[currIteration % palette.length]);
-        if (paintChartClockwise) arc.setStartAngle(chartStartAngleDeg);
+    private void animateSliceElements(int iteration){
+        Path sliceLine = middleLinesList.get(iteration);
+        Text sliceText = textsList.get(iteration);
+        Arc sliceArc = arcsList.get(iteration);
 
-        Text textForCurrentArc = textsList.get(currIteration);
-        arc.lengthProperty().addListener(e->{
-            String newText = calculateNewPercentage(arc.getLength());
-            textForCurrentArc.setText(newText);
-        });
-        arc.hoverProperty().addListener( e -> {
-            Data d = dataList.get(currIteration);
-            Label label = new Label(d.getName() + " is " + d.getPieValue());
-            label.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
-            label.setTextFill(Color.SILVER);
+        animateArcByAngle(sliceArc, angles[iteration], sliceArc.getLength());
+        double targetAngleDeg = calculateMiddleLineAngle(angles, iteration);
+        animateTextAndLineMoving(sliceLine, sliceText, chartStartAngleDeg, targetAngleDeg, true);
 
-        });
-
-        arcsList.add(arc);
-        return arc;
+        group.getChildren().add(sliceLine);
+        group.getChildren().add(sliceArc);
+        group.getChildren().add(sliceText);
     }
-    private Text createTextForSlice(int iteration) {
-        double[] coordinates = calculateXYofArcsMiddle(iteration, 'T');
-        double arcLength = angles[iteration+1] - angles[iteration];
+    private void createLabelForLegend(int iteration){
+        Label legend = new Label("- " + dataList.get(iteration).getName() + " - " + dataList.get(iteration).getPieValue());
+        Rectangle rect = new Rectangle(20,20, palette[iteration % palette.length]);
+        rect.setArcHeight(6);
+        rect.setArcWidth(6);
+        HBox hBox = new HBox(10, rect, legend);
+        legend.getStyleClass().add("hover_label");
 
-        Text text = new Text(coordinates[0], coordinates[1], calculateNewPercentage(arcLength));
-        text.setFill(palette[iteration % palette.length]);
-        text.setFont(Font.font("Lato", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        text.setWrappingWidth(90);
-        text.setTextAlignment(TextAlignment.LEFT);
-        text.setTranslateY(5);
-
-        // Выравнивание относительно четверти на графике
-        text.xProperty().addListener(e->{
-            if (text.getX() < centerX)
-                text.setTranslateX(text.getWrappingWidth() / -2.0);
-            else if (text.getX() > centerX)
-                text.setTranslateX(-5);
-        });
-        textsList.add(text);
-        return text;
+        try {
+            legendContainer.getChildren().remove( iteration );
+            legendContainer.getChildren().add( iteration,hBox );
+        } catch (IndexOutOfBoundsException e){
+            legendContainer.getChildren().add( hBox);
+        }
+        animateFadeAppear(hBox);
     }
     private void createLabelsInsideChart(){
         chartCircle = new Circle(centerX, centerY, 145);
@@ -199,34 +199,26 @@ public class PieChartNoPath {
         peopleLabel.setLayoutY(246);
         peopleLabel.getStyleClass().add("people_label");
 
+        legendContainer.setLayoutX(540);
+        legendContainer.setLayoutY(centerY - 80);
+
         group.getChildren().add(chartCircle);
         container.getChildren().add(group);
         container.getChildren().add(chartCircle);
         container.getChildren().add(peopleLabel);
         container.getChildren().add(totalNumberLabel);
+        container.getChildren().add(legendContainer);
 
         chartCircle.toFront();
         peopleLabel.toFront();
         totalNumberLabel.toFront();
+        legendContainer.toBack();
     }
 
     //Calculators
     private String calculateNewPercentage(double arcLength){
         double currentPercentage = arcLength*100 / 360;
         return  String.valueOf(Precision.round(currentPercentage,1)) + '%';
-    }
-    private double[] calculateXYofArcsMiddle(int iteration, char type){
-        // char type: 'L' stands for LINE, 'T' for TEXT
-        double overLength = 10;
-        if (type == 'T') overLength = 30;
-
-        double[] result = new double[2];
-        double angle = calculateMiddleLineAngle(angles, iteration);
-        double currentAngleRadians = Math.toRadians(-angle);
-        result[0] = centerX + (radius + overLength)*Math.cos(currentAngleRadians);
-        result[1] = centerY + (radius + overLength)*Math.sin(currentAngleRadians);
-
-        return result;
     }
     private double calculateMiddleLineAngle(int[] angles, int iteration){
         return (angles[iteration+1]-angles[iteration])/2.0 + angles[iteration];
@@ -248,19 +240,23 @@ public class PieChartNoPath {
     public void addChartSlice(Data data) {
         int[] oldAngles = new int[this.angles.length];
         System.arraycopy(angles, 0, oldAngles, 0, oldAngles.length);
+        int indexOfNode = 0;
         for (Data node: dataList) {
             if (node.getName().equals(data.getName()))
             {
                 node.setPieValue( node.getPieValue() + data.getPieValue() );
                 calculateAngles();
                 moveAndAnimateElements(oldAngles, slicesCount);
+                createLabelForLegend(indexOfNode);
                 return;
-            }
+            } else
+                indexOfNode++;
         }
         dataList.add(data);
 
         calculateAngles();
         createSliceElements(dataList.size() - 1);
+        animateSliceElements(dataList.size() - 1);
         moveAndAnimateElements(oldAngles, slicesCount - 1);
         updateTotalAmountLabel();
     }
@@ -270,12 +266,15 @@ public class PieChartNoPath {
         System.arraycopy(angles, 0, oldAngles, 0, oldAngles.length);
         // 2. Editing dataList's one selected arc (MAIN LOGIC)
         boolean nameFoundInList = false;
+        int indexOfNode = 0;
         for (Data node: dataList) {
             if (node.getName().equals(data.getName()))
             {
                 node.setPieValue( data.getPieValue() );
                 nameFoundInList = true;
-            }
+                break;
+            } else
+                indexOfNode++;
         }
         if (!nameFoundInList) return;
         // 3. calculating new angles for arcs from dataList
@@ -283,6 +282,7 @@ public class PieChartNoPath {
         // 4. Animating text,arc,line
         moveAndAnimateElements(oldAngles, slicesCount);
         updateTotalAmountLabel();
+        createLabelForLegend(indexOfNode);
     }
     public void deleteChartSlice(String nodeName) {
         // 1. Delete dataList's one selected arc (MAIN LOGIC)
@@ -324,9 +324,15 @@ public class PieChartNoPath {
             // TODO: Может все таки Listener
             double targetArcLength = angles[j+1] - angles[j];
             if (targetArcLength == 0.0)
-                animateFadeDisappear(middleLinesList.get(j), textsList.get(j));
+                {
+                    animateFadeDisappear(middleLinesList.get(j));
+                    animateFadeDisappear(textsList.get(j));
+                }
             else if (arcsList.get(j).getLength() == 0.0 && targetArcLength > 0.0)
-                animateFadeAppear(middleLinesList.get(j), textsList.get(j));
+                {
+                    animateFadeAppear(middleLinesList.get(j));
+                    animateFadeAppear(textsList.get(j));
+                }
 
             moveArcByAngle(arcsList.get(j), angles[j], targetArcLength);
 
@@ -410,6 +416,9 @@ public class PieChartNoPath {
             group.getChildren().remove(lineToDelete);
             group.getChildren().remove(textToDelete);
         });
+        animateFadeDisappear(legendContainer.getChildren().get(iteration)).setOnFinished(e->{
+            legendContainer.getChildren().remove(iteration);
+        });
     }
     private Timeline animateDeleteElements(Arc arcToDelete, Path linePath, Text text, int[] oldAngles){
         // Here, i want to animate radius and length to 0, so the slice will become tiny at the end
@@ -426,32 +435,25 @@ public class PieChartNoPath {
         tl.getKeyFrames().add(keyFrame2);
         tl.play();
 
-        animateFadeDisappear(linePath, text);
+        animateFadeDisappear(linePath);
+        animateFadeDisappear(text);
         moveAndAnimateElements(oldAngles, slicesCount);
         return tl;
     }
 
     //Text & Line fading animation
-    private void animateFadeDisappear(Path linePath, Text text){
-        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs / 2), text);
-        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs / 2), linePath);
+    private FadeTransition animateFadeDisappear(Node node){
+        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs / 2), node);
         ftText.setFromValue(1.0);
-        ftLine.setFromValue(1.0);
-
         ftText.setToValue(0.0);
-        ftLine.setToValue(0.0);
         ftText.play();
-        ftLine.play();
+        return ftText;
     }
-    private void animateFadeAppear(Path linePath, Text text){
-        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs), text);
-        FadeTransition ftLine = new FadeTransition(Duration.millis(animationDurationMs), linePath);
+    private FadeTransition animateFadeAppear(Node node){
+        FadeTransition ftText = new FadeTransition(Duration.millis(animationDurationMs), node);
         ftText.setFromValue(0.0);
-        ftLine.setFromValue(0.0);
-
         ftText.setToValue(1.0);
-        ftLine.setToValue(1.0);
         ftText.play();
-        ftLine.play();
+        return ftText;
     }
 }

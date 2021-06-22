@@ -56,3 +56,7 @@
     -fx-text-fill: #7478AD;
     -fx-font: 32px "Lato", sans-serif;
 }
+.hover_label {
+    -fx-text-fill: #7478AD;
+    -fx-font: 20px "Lato", sans-serif;
+}
