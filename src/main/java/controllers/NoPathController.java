@@ -2,8 +2,8 @@ package controllers;
 
 import classes.ClientSocketHandler;
 import classes.PieChartNoPath;
-import db.DatabaseHandler;
 import javafx.beans.binding.DoubleBinding;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -11,6 +11,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import socket.SelectionDataSocket;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.UUID;
 
 public class NoPathController {
 
@@ -28,17 +39,18 @@ public class NoPathController {
     private TextField fieldValue;
     @FXML
     private TextField fieldName;
+    @FXML
+    private VBox vbox;
 
-    private ObservableList<PieChart.Data> dataList;
+    private ObservableList<PieChart.Data> dataList = FXCollections.observableArrayList();
     private ClientSocketHandler cSHandler;
     private PieChartNoPath customPie;
 
     public NoPathController() {
-        //createClientSocket();
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
         initList();
         createCustomPie();
         setButtonActions();
@@ -46,10 +58,8 @@ public class NoPathController {
         addChartScaling();
     }
 
-    private void initList() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-        dataList = dbHandler.getDataNoTime();
-        System.out.println(dataList);
+    private void initList() throws IOException {
+        executeChartDataUpdate();
     }
 
     private void setButtonActions() {
@@ -77,7 +87,13 @@ public class NoPathController {
     }
 
     private void createCustomPie() {
-        customPie = new PieChartNoPath(dataList, paneChart, true);
+        try {
+            String json = sendGET();
+            updatePieDataList(json);
+        } catch (IOException ignored){
+
+        }
+        customPie = new PieChartNoPath(dataList, paneChart,vbox, true);
         customPie.paint();
         customPie.updateTotalAmountLabel();
     }
@@ -97,4 +113,59 @@ public class NoPathController {
         paneChart.scaleXProperty().bind(scaleValue);
         paneChart.scaleYProperty().bind(scaleValue);
     }
+    public void updatePieDataList(String json) {
+        JSONObject jsonObject = new JSONObject(json);
+        JSONArray jArray = jsonObject.getJSONArray("chartData");
+        dataList.clear();
+        if (jArray != null) {
+            for ( int i=0; i < jArray.length(); i++ ){
+                JSONObject jObj = jArray.getJSONObject(i); //{"Касса":660} ...
+                String key = jObj.keys().next();
+                dataList.add( new PieChart.Data( key, jObj.getDouble(key)));
+            }
+        }
+    }
+
+    private void executeChartDataUpdate() throws IOException {
+
+        SelectionDataSocket socket = new SelectionDataSocket();
+        socket.startTransferData(this);
+        //String json = sendGET();
+        //updatePieDataList(json);
+    }
+
+    public static String sendGET() throws IOException {
+        URL obj = new URL("http://127.0.0.1:8080/shop/chart");
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        int responseCode = con.getResponseCode();
+        StringBuilder response = new StringBuilder();
+        System.out.println("GET Response Code :: " + responseCode);
+        if (responseCode == HttpURLConnection.HTTP_OK) { // success
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    con.getInputStream()));
+            String inputLine;
+
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            // print result
+            System.out.println(response.toString());
+
+        } else {
+            System.out.println("GET request not worked");
+        }
+        return response.toString();
+    }
+
+    public String getChartUniqueKey() {
+
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
+    }
 }
+

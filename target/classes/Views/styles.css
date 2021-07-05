@@ -60,3 +60,23 @@
     -fx-text-fill: #7478AD;
     -fx-font: 20px "Lato", sans-serif;
 }
+
+/*------ LEGEND STYLES START-----*/
+.hbox {
+    -fx-spacing: 15px;
+    -fx-fill-height: true;
+}
+.hbox_rect {
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+}
+.hbox_label {
+    -fx-font: 22px "Lato", sans-serif;
+    -fx-alignment: center-left;
+    -fx-content-display: left;
+}
+.hbox_amount {
+    -fx-font: 21px "Lato", sans-serif;
+    -fx-alignment: center-right;
+    -fx-content-display: right;
+}

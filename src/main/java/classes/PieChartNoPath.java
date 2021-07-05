@@ -1,23 +1,27 @@
 package classes;
 
 import javafx.animation.*;
+import javafx.beans.InvalidationListener;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 import org.apache.commons.math3.util.Precision;
 
 import java.util.ArrayList;
@@ -25,11 +29,11 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class PieChartNoPath {
     private Pane container;
+    private VBox legendContainer;
     private Group group;
     private Circle chartCircle;
     private Label totalNumberLabel;
     private Label peopleLabel;
-    private VBox legendContainer;
     private SliceElementsCreator sliceElementsCreator;
 
     // If you want to change direction of chart - just make this false
@@ -64,11 +68,11 @@ public class PieChartNoPath {
             Color.rgb(154, 139, 231),
     };
 
-    public PieChartNoPath(ObservableList<Data> data, Pane container, boolean paintChartClockwise) {
+    public PieChartNoPath(ObservableList<Data> data, Pane container, VBox vbox, boolean paintChartClockwise) {
         // Set data list and Group
         this.dataList = data;
         this.container = container;
-        this.legendContainer = new VBox(15);
+        this.legendContainer = vbox;
         this.group = new Group();
         this.totalNumberLabel = new Label();
         this.peopleLabel = new Label("people");
@@ -119,6 +123,15 @@ public class PieChartNoPath {
             createSliceElements(i);
             animateSliceElements(i);
         }
+
+        dataList.addListener((InvalidationListener) e->{
+            System.out.println("UPDATING THE CHART WITH NEW DATA");
+            // TODO: ТУТ МОЖНО СДЕЛАТЬ СЛУШАТЕЛЯ ИЗМЕНЕНИЯ СПИСКА
+            // будь то полное изменение объектов списка или изменение одной записи
+            // будет необходима передвижение всех элементов
+            // 1. для передвижения необходимы старый список углов, до изменения
+            // 2. если вдруг добавится один, надо доавбелние и тд.
+        });
     }
 
     private void createSliceElements(int iteration){
@@ -151,10 +164,10 @@ public class PieChartNoPath {
             }
         });
 
-        createLabelForLegend(iteration);
-
         textsList.add(sliceText);
         arcsList.add(createdArc);
+
+        createLabelForLegend(iteration);
     }
     private void animateSliceElements(int iteration){
         Path sliceLine = middleLinesList.get(iteration);
@@ -170,20 +183,46 @@ public class PieChartNoPath {
         group.getChildren().add(sliceText);
     }
     private void createLabelForLegend(int iteration){
-        Label legend = new Label("- " + dataList.get(iteration).getName() + " - " + dataList.get(iteration).getPieValue());
         Rectangle rect = new Rectangle(20,20, palette[iteration % palette.length]);
+        Label legend = new Label(dataList.get(iteration).getName());
+        Label amount = new Label(String.valueOf( Math.round( dataList.get(iteration).getPieValue() )));
+        // Filler for aligning amount of people to right side of HBox
+        Region filler = new Region();
+
+        Arc currArc = arcsList.get(iteration);
+        // Undirectional binding double to string
+        // Here we calculating amount of people from length arc/360 * totalPeople
+        amount.textProperty().bind(Bindings.createStringBinding(
+                () -> Integer.toString( (int) Math.round( currArc.getLength() / 360.0 * updateTotalAmountLabel() ) ),
+                currArc.lengthProperty()));
+
         rect.setArcHeight(6);
         rect.setArcWidth(6);
-        HBox hBox = new HBox(10, rect, legend);
-        legend.getStyleClass().add("hover_label");
+        HBox hBox = new HBox(10, rect, legend, filler, amount);
+
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setFillHeight(true);
+        hBox.setMinHeight(20);
+        hBox.setPrefHeight(20);
+        hBox.setMaxHeight(20);
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        legend.setAlignment(Pos.CENTER_LEFT);
+
+        //legend.getStyleClass().add("hover_label");
+        rect.getStyleClass().add("hbox_rect");
+        legend.getStyleClass().add("hbox_label");
+        amount.getStyleClass().add("hbox_amount");
 
         try {
+            //editing
             legendContainer.getChildren().remove( iteration );
             legendContainer.getChildren().add( iteration,hBox );
         } catch (IndexOutOfBoundsException e){
+            //creating
             legendContainer.getChildren().add( hBox);
+            animateFadeAppear(hBox);
         }
-        animateFadeAppear(hBox);
+
     }
     private void createLabelsInsideChart(){
         chartCircle = new Circle(centerX, centerY, 145);
@@ -300,6 +339,13 @@ public class PieChartNoPath {
         if (!nameFoundInList) return;
         deleteSliceElements(indexOfDeletedNode);
         updateTotalAmountLabel();
+    }
+    public void repaintPieChart(){
+        System.out.println( "HEY HEY HEY : UPDATING THE CHART");
+        int[] oldAngles = new int[this.angles.length];
+        System.arraycopy(angles, 0, oldAngles, 0, oldAngles.length);
+        calculateAngles();
+        moveAndAnimateElements(oldAngles, slicesCount);
     }
 
     private void animateArcByAngle(Arc element, double targetAngle, double targetLength){
@@ -456,4 +502,5 @@ public class PieChartNoPath {
         ftText.play();
         return ftText;
     }
+
 }
